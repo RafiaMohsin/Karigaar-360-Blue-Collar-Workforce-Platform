@@ -21,6 +21,10 @@ Karigaar 360 is a web platform built with ASP.NET Core MVC that connects blue-co
 ### ORM: Entity Framework Core
 <br>
 
+### Site Mape for iteration 1 <br>
+https://www.figma.com/make/FdDniVVa68M7jm1rKmdaAw/Create-site-map?t=NzlDA6OzxDLXLbzy-1&preview-route=%2Fsitemap
+ - using figma tool
+   
 ## Installation
 <br>
 git clone (https://github.com/RafiaMohsin/Karigaar-360-Blue-Collar-Workforce-Platform)
