@@ -10,20 +10,20 @@ Karigaar 360 is a web platform built with ASP.NET Core MVC that connects blue-co
 - Kashish Fatima (24L-2605)  <br>
 - Rafia Mohsin (24L-2595) <br>
 
-## Tech Stack <br>
+## Tech Stack 
 
 ### Backend: ASP.NET Core MVC (C#)
-<br>
+
 ### Frontend: HTML, CSS, Bootstrap (Razor Views)
-<br>
+
 ### Database: Microsoft SQL Server
-<br> 
+ 
 ### ORM: Entity Framework Core
 <br>
 
 ## Installation
 <br>
-git clone [https://github.com/your-username/karigaar360.git](https://github.com/RafiaMohsin/Karigaar-360-Blue-Collar-Workforce-Platform)
+git clone (https://github.com/RafiaMohsin/Karigaar-360-Blue-Collar-Workforce-Platform)
 <br> 
 cd karigaar360
 <br>
