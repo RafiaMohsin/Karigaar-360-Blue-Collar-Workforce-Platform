@@ -30,4 +30,5 @@ https://www.figma.com/make/FdDniVVa68M7jm1rKmdaAw/Create-site-map?t=NzlDA6OzxDLX
 git clone (https://github.com/RafiaMohsin/Karigaar-360-Blue-Collar-Workforce-Platform)
 <br> 
 cd karigaar360
-<br>
+<br>Open in Visual Studio and run:<br>
+dotnet run
