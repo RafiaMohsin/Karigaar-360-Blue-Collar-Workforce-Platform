@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("karigaar360")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c3b1e04ed4d555f70a256c9fc232a794c8643a41")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+843b45fb4ca767b910144a016d8b69c1a3a3b683")]
 [assembly: System.Reflection.AssemblyProductAttribute("karigaar360")]
 [assembly: System.Reflection.AssemblyTitleAttribute("karigaar360")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
