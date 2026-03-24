@@ -1,0 +1,91 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\karigaar360\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A172FCD3-7BD1-4EAE-8478-10441AC32B45}|karigaar360\\karigaar360.csproj|c:\\users\\aliyah rahseed\\source\\repos\\karigaar-360-blue-collar-workforce-platform\\karigaar360\\karigaar360\\pages\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A172FCD3-7BD1-4EAE-8478-10441AC32B45}|karigaar360\\karigaar360.csproj|solutionrelative:karigaar360\\pages\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A172FCD3-7BD1-4EAE-8478-10441AC32B45}|karigaar360\\karigaar360.csproj|c:\\users\\aliyah rahseed\\source\\repos\\karigaar-360-blue-collar-workforce-platform\\karigaar360\\karigaar360\\pages\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A172FCD3-7BD1-4EAE-8478-10441AC32B45}|karigaar360\\karigaar360.csproj|solutionrelative:karigaar360\\pages\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A172FCD3-7BD1-4EAE-8478-10441AC32B45}|karigaar360\\karigaar360.csproj|c:\\users\\aliyah rahseed\\source\\repos\\karigaar-360-blue-collar-workforce-platform\\karigaar360\\karigaar360\\karigaar360.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A172FCD3-7BD1-4EAE-8478-10441AC32B45}|karigaar360\\karigaar360.csproj|solutionrelative:karigaar360\\karigaar360.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A172FCD3-7BD1-4EAE-8478-10441AC32B45}|karigaar360\\karigaar360.csproj|c:\\users\\aliyah rahseed\\source\\repos\\karigaar-360-blue-collar-workforce-platform\\karigaar360\\karigaar360\\karigaar360.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{A172FCD3-7BD1-4EAE-8478-10441AC32B45}|karigaar360\\karigaar360.csproj|solutionrelative:karigaar360\\karigaar360.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\karigaar360\\karigaar360\\Pages\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "karigaar360\\Pages\\_ViewStart.cshtml",
+              "ToolTip": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\karigaar360\\karigaar360\\Pages\\_ViewStart.cshtml",
+              "RelativeToolTip": "karigaar360\\Pages\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-24T13:04:54.031Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\karigaar360\\karigaar360\\Pages\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "karigaar360\\Pages\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\karigaar360\\karigaar360\\Pages\\_ViewImports.cshtml",
+              "RelativeToolTip": "karigaar360\\Pages\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-24T13:04:50.198Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "karigaar360",
+              "DocumentMoniker": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\karigaar360\\karigaar360\\karigaar360.csproj",
+              "RelativeDocumentMoniker": "karigaar360\\karigaar360.csproj",
+              "ToolTip": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\karigaar360\\karigaar360\\karigaar360.csproj",
+              "RelativeToolTip": "karigaar360\\karigaar360.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-24T13:00:40.421Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "karigaar360",
+              "DocumentMoniker": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\karigaar360\\karigaar360\\karigaar360.csproj",
+              "RelativeDocumentMoniker": "karigaar360\\karigaar360.csproj",
+              "ToolTip": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\karigaar360\\karigaar360\\karigaar360.csproj",
+              "RelativeToolTip": "karigaar360\\karigaar360.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-24T12:59:10.687Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
