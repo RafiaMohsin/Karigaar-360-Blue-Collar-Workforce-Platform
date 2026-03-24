@@ -28,6 +28,11 @@ public class WorkerController : Controller
         {
             _context.Add(worker);
             await _context.SaveChangesAsync();
+            
+            // Set session after successful registration
+            HttpContext.Session.SetInt32("WorkerId", worker.Id);
+            HttpContext.Session.SetString("WorkerName", worker.FullName);
+            
             return RedirectToAction(nameof(Dashboard));
         }
         return View(worker);
@@ -35,7 +40,8 @@ public class WorkerController : Controller
 
     public IActionResult Dashboard()
     {
-        ViewBag.UserName = "Worker";
+        var userName = HttpContext.Session.GetString("WorkerName") ?? "Worker";
+        ViewBag.UserName = userName;
         return View();
     }
 
@@ -50,6 +56,10 @@ public class WorkerController : Controller
         var worker = await _context.Workers.FirstOrDefaultAsync(w => w.Phone == phone);
         if (worker != null)
         {
+            // Set session after successful login
+            HttpContext.Session.SetInt32("WorkerId", worker.Id);
+            HttpContext.Session.SetString("WorkerName", worker.FullName);
+            
             ViewBag.UserName = worker.FullName;
             return RedirectToAction(nameof(Dashboard));
         }
@@ -59,6 +69,7 @@ public class WorkerController : Controller
 
     public IActionResult Logout()
     {
+        HttpContext.Session.Clear();
         return RedirectToAction("Index", "Home");
     }
 }

@@ -28,6 +28,11 @@ public class CustomerController : Controller
         {
             _context.Add(customer);
             await _context.SaveChangesAsync();
+            
+            // Set session after successful registration
+            HttpContext.Session.SetInt32("CustomerId", customer.Id);
+            HttpContext.Session.SetString("CustomerName", customer.FullName);
+            
             return RedirectToAction(nameof(Dashboard));
         }
         return View(customer);
@@ -44,6 +49,10 @@ public class CustomerController : Controller
         var customer = await _context.Customers.FirstOrDefaultAsync(c => c.Phone == phone);
         if (customer != null)
         {
+            // Set session after successful login
+            HttpContext.Session.SetInt32("CustomerId", customer.Id);
+            HttpContext.Session.SetString("CustomerName", customer.FullName);
+            
             ViewBag.UserName = customer.FullName;
             return RedirectToAction(nameof(Dashboard));
         }
@@ -53,12 +62,14 @@ public class CustomerController : Controller
 
     public IActionResult Dashboard()
     {
-        ViewBag.UserName = "Customer";
+        var userName = HttpContext.Session.GetString("CustomerName") ?? "Customer";
+        ViewBag.UserName = userName;
         return View();
     }
 
     public IActionResult Logout()
     {
+        HttpContext.Session.Clear();
         return RedirectToAction("Index", "Home");
     }
 }
