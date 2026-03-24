@@ -1,8 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\frontend"
+    "\\frontend",
+    "\\karigaar360",
+    "\\karigaar360\\karigaar360",
+    "\\karigaar360\\karigaar360\\Pages",
+    "\\karigaar360\\karigaar360\\Pages\\Account",
+    "\\karigaar360\\karigaar360\\Pages\\Customer",
+    "\\karigaar360\\karigaar360\\Pages\\home",
+    "\\karigaar360\\karigaar360\\Pages\\Job",
+    "\\karigaar360\\karigaar360\\Pages\\Worker"
   ],
-  "SelectedNode": "\\frontend",
+  "SelectedNode": "\\karigaar360\\karigaar360\\Pages\\Account\\logint.cshtml",
   "PreviewInSolutionExplorer": false
 }

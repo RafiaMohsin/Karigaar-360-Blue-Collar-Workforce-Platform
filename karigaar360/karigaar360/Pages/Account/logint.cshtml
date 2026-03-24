@@ -1,0 +1,92 @@
+@page
+@{
+    ViewData["Title"] = "Login | Karigaar 360";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Karigaar 360</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top shadow-sm bg-white">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <div class="logo-wrapper me-2">
+                    <i class="fas fa-tools text-warning floating"></i>
+                </div>
+                <span class="fw-bold"
+                      style="background: linear-gradient(45deg, var(--primary-color), var(--primary-light)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                    Karigaar
+                    360
+                </span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Login Form -->
+    <div class="container my-auto py-5">
+        <div class="row justify-content-center animate-up">
+            <div class="col-md-6 col-lg-5 col-xl-4">
+                <div class="card shadow-lg p-4 p-md-5">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-lock fa-3x text-primary mb-3"></i>
+                        <h2 class="fw-bold">Login</h2>
+                        <p class="text-muted">Welcome back to Karigaar 360</p>
+                    </div>
+
+                    <form>
+                        <div class="mb-3 text-start">
+                            <label class="form-label fw-semibold">Phone Number / Email</label>
+                            <input type="text" class="form-control" placeholder="Enter your credentials" required>
+                        </div>
+                        <div class="mb-4 text-start">
+                            <label class="form-label fw-semibold">Password</label>
+                            <input type="password" class="form-control" placeholder="Your password" required>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="rememberMe">
+                                <label class="form-check-label text-muted" for="rememberMe">Remember me</label>
+                            </div>
+                            <a href="#" class="text-primary text-decoration-none small">Forgot Password?</a>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-3 mb-3">Login</button>
+                    </form>
+
+                    <div class="text-center mt-3 pt-3 border-top">
+                        <p class="text-muted mb-2">Don't have an account?</p>
+                        <div class="d-grid gap-2">
+                            <a href="customer-register.html" class="btn btn-outline-secondary">Sign Up as Customer</a>
+                            <a href="worker-register.html" class="btn btn-outline-secondary">Register as Karigaar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-3 bg-white border-top">
+        <div class="container">
+            <div class="text-center opacity-50">
+                <small>&copy; 2026 Karigaar 360. All rights reserved.</small>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

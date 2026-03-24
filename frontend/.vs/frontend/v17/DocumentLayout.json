@@ -1,7 +1,28 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\frontend\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\frontend\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\frontend\\post-job.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:post-job.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\frontend\\login.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:login.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\frontend\\customer-register.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:customer-register.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\frontend\\worker-register.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:worker-register.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +30,72 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "login.html",
+              "DocumentMoniker": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\frontend\\login.html",
+              "RelativeDocumentMoniker": "login.html",
+              "ToolTip": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\frontend\\login.html",
+              "RelativeToolTip": "login.html",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAcwFMAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-03-24T13:42:34.16Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "post-job.html",
+              "DocumentMoniker": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\frontend\\post-job.html",
+              "RelativeDocumentMoniker": "post-job.html",
+              "ToolTip": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\frontend\\post-job.html",
+              "RelativeToolTip": "post-job.html",
+              "ViewState": "AgIAAGIAAAAAAAAAAAAcwGgAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-03-24T13:42:19.777Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "index.html",
+              "DocumentMoniker": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\frontend\\index.html",
+              "RelativeDocumentMoniker": "index.html",
+              "ToolTip": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\frontend\\index.html",
+              "RelativeToolTip": "index.html",
+              "ViewState": "AgIAAL8AAAAAAAAAAAAcwMYAAABNAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-03-24T13:41:54.546Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "customer-register.html",
+              "DocumentMoniker": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\frontend\\customer-register.html",
+              "RelativeDocumentMoniker": "customer-register.html",
+              "ToolTip": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\frontend\\customer-register.html",
+              "RelativeToolTip": "customer-register.html",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAcwFgAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-03-24T13:40:04.861Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "worker-register.html",
+              "DocumentMoniker": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\frontend\\worker-register.html",
+              "RelativeDocumentMoniker": "worker-register.html",
+              "ToolTip": "C:\\Users\\Aliyah Rahseed\\source\\repos\\Karigaar-360-Blue-Collar-Workforce-Platform\\frontend\\worker-register.html",
+              "RelativeToolTip": "worker-register.html",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-03-24T13:39:53.442Z",
+              "EditorCaption": ""
             }
           ]
         }
