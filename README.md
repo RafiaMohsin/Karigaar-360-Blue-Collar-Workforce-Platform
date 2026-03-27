@@ -16,7 +16,7 @@ Karigaar-360 is a comprehensive web platform built with ASP.NET Core MVC that co
 | Name | Roll Number |
 |------|------------|
 | Aliya Rasheed | 24L-2544 |
-| Aima Shakeel | 24L-2513 |
+| Aima Shakeel | 24L-2531 |
 | Kashish Fatima | 24L-2605 |
 | Rafia Mohsin | 24L-2595 |
 
