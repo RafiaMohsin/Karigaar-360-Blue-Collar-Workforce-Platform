@@ -26,6 +26,9 @@ public class CustomerController : Controller
     {
         if (ModelState.IsValid)
         {
+            // Hash the password before saving
+            customer.PasswordHash = BCrypt.Net.BCrypt.HashPassword(customer.PasswordHash);
+            
             _context.Add(customer);
             await _context.SaveChangesAsync();
             
@@ -47,7 +50,7 @@ public class CustomerController : Controller
     public async Task<IActionResult> Login(string phone, string password)
     {
         var customer = await _context.Customers.FirstOrDefaultAsync(c => c.Phone == phone);
-        if (customer != null)
+        if (customer != null && BCrypt.Net.BCrypt.Verify(password, customer.PasswordHash))
         {
             // Set session after successful login
             HttpContext.Session.SetInt32("CustomerId", customer.Id);

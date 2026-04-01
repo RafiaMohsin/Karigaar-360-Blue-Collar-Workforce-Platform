@@ -106,6 +106,7 @@ public class JobController : Controller
     {
         var job = await _context.Jobs
             .Include(j => j.Customer)
+            .Include(j => j.Worker)
             .FirstOrDefaultAsync(j => j.Id == id);
 
         if (job == null)
@@ -114,5 +115,94 @@ public class JobController : Controller
         }
 
         return View(job);
+    }
+
+    public async Task<IActionResult> Browse()
+    {
+        var workerId = HttpContext.Session.GetInt32("WorkerId");
+        if (workerId == null)
+        {
+            return RedirectToAction("Login", "Worker");
+        }
+
+        // Get jobs that are open
+        var jobs = await _context.Jobs
+            .Where(j => j.Status == "Open")
+            .OrderByDescending(j => j.CreatedAt)
+            .ToListAsync();
+
+        return View(jobs);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AcceptJob(int id)
+    {
+        var workerId = HttpContext.Session.GetInt32("WorkerId");
+        var workerName = HttpContext.Session.GetString("WorkerName");
+
+        if (workerId == null)
+        {
+            return RedirectToAction("Login", "Worker");
+        }
+
+        var job = await _context.Jobs.FindAsync(id);
+        if (job == null || job.Status != "Open")
+        {
+            return NotFound();
+        }
+
+        job.WorkerId = workerId;
+        job.WorkerName = workerName;
+        job.Status = "Accepted";
+
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction(nameof(MyAcceptedJobs));
+    }
+
+    public async Task<IActionResult> MyAcceptedJobs()
+    {
+        var workerId = HttpContext.Session.GetInt32("WorkerId");
+        if (workerId == null)
+        {
+            return RedirectToAction("Login", "Worker");
+        }
+
+        var jobs = await _context.Jobs
+            .Where(j => j.WorkerId == workerId)
+            .OrderByDescending(j => j.CreatedAt)
+            .ToListAsync();
+
+        return View(jobs);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CompleteJob(int id)
+    {
+        var workerId = HttpContext.Session.GetInt32("WorkerId");
+        if (workerId == null)
+        {
+            return RedirectToAction("Login", "Worker");
+        }
+
+        var job = await _context.Jobs.FindAsync(id);
+        if (job == null || job.WorkerId != workerId)
+        {
+            return NotFound();
+        }
+
+        job.Status = "Completed";
+        job.CompletedAt = DateTime.UtcNow;
+
+        // Update worker stats
+        var worker = await _context.Workers.FindAsync(workerId);
+        if (worker != null)
+        {
+            worker.TotalJobsCompleted += 1;
+        }
+
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction(nameof(MyAcceptedJobs));
     }
 }

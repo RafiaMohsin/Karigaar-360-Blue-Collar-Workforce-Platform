@@ -1,0 +1,65 @@
+@model IEnumerable<Karigaar360.Models.Job>
+@{
+    ViewData["Title"] = "Browse Available Jobs";
+}
+
+<div class="container py-5 mt-4">
+    <div class="row g-4 mb-4 align-items-center">
+        <div class="col-md-6 mb-3 mb-md-0">
+            <h2 class="fw-bold mb-0">Discover New Opportunities</h2>
+            <p class="text-muted">Find the best jobs in your area and project area.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+            <div class="input-group shadow-sm rounded-pill overflow-hidden bg-white px-3 align-items-center">
+                <i class="fas fa-search text-muted me-2"></i>
+                <input type="text" class="form-control border-0 bg-transparent px-2" placeholder="Search by category or title...">
+                <button class="btn btn-primary rounded-pill px-3 m-2">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var job in Model)
+            {
+                <div class="col-lg-4 col-md-6 animate-up">
+                    <div class="card h-100 shadow-sm border-0 job-card dashboard-card">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <span class="badge bg-light text-primary px-3 py-2 rounded-pill fw-bold">@job.Category</span>
+                                <div class="text-muted small">
+                                    <i class="far fa-clock me-1"></i> @job.CreatedAt.ToString("MMM dd")
+                                </div>
+                            </div>
+                            <h4 class="fw-bold mb-3">@job.Title</h4>
+                            <p class="text-muted mb-4 line-clamp-3">@job.Description</p>
+                            <div class="d-flex align-items-center mb-4">
+                                <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                <span class="small fw-semibold">@job.Location</span>
+                            </div>
+                            <hr class="opacity-25 mb-4">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <small class="text-muted d-block font-inter">Offered Price</small>
+                                    <span class="price-tag">Rs. @job.OfferedPrice.ToString("F0")</span>
+                                </div>
+                                <form asp-action="AcceptJob" asp-route-id="@job.Id" method="post">
+                                    <button type="submit" class="btn btn-primary rounded-pill px-4 shadow">Accept Job</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center py-5 opacity-50 bg-light rounded-4">
+                <i class="fas fa-search fa-4x mb-3"></i>
+                <h3>No jobs available at the moment.</h3>
+                <p>Check back later for new opportunities.</p>
+            </div>
+        }
+    </div>
+</div>

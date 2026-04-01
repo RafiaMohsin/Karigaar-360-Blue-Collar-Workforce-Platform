@@ -41,9 +41,19 @@ namespace Karigaar360.Models
         [StringLength(100)]
         public string CustomerName { get; set; } = string.Empty;
 
+        public int? WorkerId { get; set; }
+
+        [ForeignKey("WorkerId")]
+        public Worker? Worker { get; set; }
+
+        [StringLength(100)]
+        public string? WorkerName { get; set; }
+
         [StringLength(20)]
-        public string Status { get; set; } = "Open";
+        public string Status { get; set; } = "Open"; // Open, Accepted, Completed
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        public DateTime? CompletedAt { get; set; }
     }
 }
