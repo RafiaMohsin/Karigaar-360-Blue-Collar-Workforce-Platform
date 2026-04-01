@@ -1,0 +1,99 @@
+@model IEnumerable<Karigaar360.Models.JobApplication>
+@{
+    ViewData["Title"] = "Applicants for " + ViewBag.JobTitle;
+}
+
+<div class="container py-5 mt-4">
+    <div class="d-flex align-items-center mb-5 animate-up">
+        <a asp-action="MyJobs" class="btn btn-outline-secondary rounded-circle me-3">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div>
+            <h2 class="fw-bold mb-0">Applicants</h2>
+            <p class="text-muted mb-0">Reviewing candidates for: <span class="text-primary fw-bold">@ViewBag.JobTitle</span></p>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5 opacity-50 animate-up">
+            <i class="fas fa-users-slash fa-4x mb-3 text-muted"></i>
+            <h3>No applicants yet</h3>
+            <p>Once workers apply to your job, they will appear here.</p>
+            <a asp-action="MyJobs" class="btn btn-primary mt-3">Back to My Jobs</a>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var app in Model)
+            {
+                <div class="col-md-6 col-lg-4 animate-up">
+                    <div class="card h-100 shadow-sm border-0 applicant-card @(app.Status == "Rejected" ? "opacity-50" : "")">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="avatar-wrapper me-3">
+                                    <i class="fas fa-user-circle fa-3x text-primary opacity-25"></i>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold mb-0">@app.Worker?.FullName</h5>
+                                    <small class="text-muted">@app.Worker?.Profession</small>
+                                </div>
+                                @if (app.Status == "Accepted")
+                                {
+                                    <span class="badge bg-success ms-auto rounded-pill px-3">Hired</span>
+                                }
+                            </div>
+
+                            <div class="row g-2 mb-4 text-center">
+                                <div class="col-6">
+                                    <div class="bg-light p-2 rounded">
+                                        <small class="text-muted d-block small">Experience</small>
+                                        <span class="fw-bold">@app.Worker.ExperienceYears yrs</span>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="bg-light p-2 rounded">
+                                        <small class="text-muted d-block small">Rating</small>
+                                        <span class="fw-bold text-warning">
+                                            <i class="fas fa-star me-1"></i>@app.Worker.Rating.ToString("F1")
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <small class="text-muted d-block mb-1">Location</small>
+                                <p class="mb-0 small"><i class="fas fa-map-marker-alt text-muted me-2"></i>@app.Worker.Location</p>
+                            </div>
+
+                            @if (app.Status == "Pending")
+                            {
+                                <form asp-action="HireWorker" method="post">
+                                    <input type="hidden" name="applicationId" value="@app.Id" />
+                                    <button type="submit" class="btn btn-primary w-100 rounded-pill fw-bold shadow-sm">
+                                        Hire this Karigaar
+                                    </button>
+                                </form>
+                            }
+                            else if (app.Status == "Rejected")
+                            {
+                                <button class="btn btn-light w-100 rounded-pill disabled" disabled>Not Selected</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    .applicant-card {
+        transition: transform 0.3s ease, shadow 0.3s ease;
+    }
+    .applicant-card:hover:not(.opacity-50) {
+        transform: translateY(-5px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.1) !important;
+    }
+</style>

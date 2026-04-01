@@ -135,14 +135,23 @@ public class JobController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> AcceptJob(int id)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> ApplyForJob(int id)
     {
         var workerId = HttpContext.Session.GetInt32("WorkerId");
-        var workerName = HttpContext.Session.GetString("WorkerName");
-
         if (workerId == null)
         {
             return RedirectToAction("Login", "Worker");
+        }
+
+        // Check if already applied
+        var alreadyApplied = await _context.JobApplications
+            .AnyAsync(a => a.JobId == id && a.WorkerId == workerId);
+        
+        if (alreadyApplied)
+        {
+            TempData["Error"] = "You have already applied for this job.";
+            return RedirectToAction(nameof(Details), new { id });
         }
 
         var job = await _context.Jobs.FindAsync(id);
@@ -151,13 +160,18 @@ public class JobController : Controller
             return NotFound();
         }
 
-        job.WorkerId = workerId;
-        job.WorkerName = workerName;
-        job.Status = "Accepted";
+        var application = new JobApplication
+        {
+            JobId = id,
+            WorkerId = (int)workerId,
+            Status = "Pending"
+        };
 
+        _context.JobApplications.Add(application);
         await _context.SaveChangesAsync();
 
-        return RedirectToAction(nameof(MyAcceptedJobs));
+        TempData["Success"] = "Application submitted successfully!";
+        return RedirectToAction(nameof(Browse));
     }
 
     public async Task<IActionResult> MyAcceptedJobs()
@@ -174,6 +188,23 @@ public class JobController : Controller
             .ToListAsync();
 
         return View(jobs);
+    }
+
+    public async Task<IActionResult> MyApplications()
+    {
+        var workerId = HttpContext.Session.GetInt32("WorkerId");
+        if (workerId == null)
+        {
+            return RedirectToAction("Login", "Worker");
+        }
+
+        var applications = await _context.JobApplications
+            .Include(a => a.Job)
+            .Where(a => a.WorkerId == workerId)
+            .OrderByDescending(a => a.AppliedAt)
+            .ToListAsync();
+
+        return View(applications);
     }
 
     [HttpPost]
@@ -204,5 +235,81 @@ public class JobController : Controller
         await _context.SaveChangesAsync();
 
         return RedirectToAction(nameof(MyAcceptedJobs));
+    }
+
+    public async Task<IActionResult> ViewApplicants(int jobId)
+    {
+        var customerId = HttpContext.Session.GetInt32("CustomerId");
+        if (customerId == null)
+        {
+            return RedirectToAction("Login", "Customer");
+        }
+
+        var job = await _context.Jobs
+            .Include(j => j.Customer)
+            .FirstOrDefaultAsync(j => j.Id == jobId && j.CustomerId == customerId);
+
+        if (job == null)
+        {
+            return NotFound();
+        }
+
+        var applicants = await _context.JobApplications
+            .Include(a => a.Worker)
+            .Where(a => a.JobId == jobId)
+            .ToListAsync();
+
+        ViewBag.JobTitle = job!.Title;
+        ViewBag.JobId = job.Id;
+
+        return View(applicants);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> HireWorker(int applicationId)
+    {
+        var customerId = HttpContext.Session.GetInt32("CustomerId");
+        if (customerId == null)
+        {
+            return RedirectToAction("Login", "Customer");
+        }
+
+        var application = await _context.JobApplications
+            .Include(a => a.Job)
+            .Include(a => a.Worker)
+            .FirstOrDefaultAsync(a => a.Id == applicationId && a.Job.CustomerId == customerId);
+
+        if (application == null || application.Job == null || application.Job.Status != "Open")
+        {
+            return NotFound();
+        }
+
+        if (application.Worker == null)
+        {
+            return NotFound();
+        }
+
+        // 1. Accept the selected worker
+        application.Status = "Accepted";
+        
+        // 2. Reject all other pending applicants for this job
+        var otherApplicants = await _context.JobApplications
+            .Where(a => a.JobId == application.JobId && a.Id != applicationId && a.Status == "Pending")
+            .ToListAsync();
+        
+        foreach (var other in otherApplicants)
+        {
+            other.Status = "Rejected";
+        }
+
+        // 3. Update job status and assign worker
+        application.Job.Status = "InProgress";
+        application.Job.WorkerId = application.WorkerId;
+        application.Job.WorkerName = application.Worker!.FullName;
+
+        await _context.SaveChangesAsync();
+
+        return RedirectToAction(nameof(MyJobs));
     }
 }
