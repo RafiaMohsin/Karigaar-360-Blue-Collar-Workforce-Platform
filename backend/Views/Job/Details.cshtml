@@ -18,13 +18,15 @@
                             <h1 class="fw-bold mb-0">@Model.Title</h1>
                         </div>
                         <span class="badge bg-glass text-white px-3 py-2 rounded-pill border border-white border-opacity-25">
-                            <i class="fas fa-circle me-1 small @(Model.Status == "Open" ? "text-info" : Model.Status == "Accepted" ? "text-warning" : "text-success")"></i> @Model.Status
+                            <i class="fas fa-circle me-1 small @(Model.Status == "Open" ? "text-info" : Model.Status == "InProgress" ? "text-warning" : "text-success")"></i> @(Model.Status == "InProgress" ? "In Progress" : Model.Status)
                         </span>
                     </div>
                 </div>
 
                 <!-- Body -->
                 <div class="card-body p-4 p-md-5">
+                    @await Html.PartialAsync("_JobStatusTracker", Model.Status)
+                    
                     <div class="row g-5">
                         <div class="col-md-7">
                             <h5 class="fw-bold mb-4 text-primary border-bottom pb-2">Job Description</h5>
@@ -132,7 +134,7 @@
                                         <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill shadow">Apply For This Job</button>
                                     </form>
                                 }
-                                else if (isWorker && Model.Status == "Accepted" && Model.WorkerId == currentWorkerId)
+                                else if (isWorker && Model.Status == "InProgress" && Model.WorkerId == currentWorkerId)
                                 {
                                     <form asp-action="CompleteJob" asp-route-id="@Model.Id" method="post">
                                         <button type="submit" class="btn btn-success btn-lg w-100 rounded-pill shadow">Mark as Completed</button>

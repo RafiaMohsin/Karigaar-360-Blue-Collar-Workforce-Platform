@@ -1,0 +1,45 @@
+@model string
+
+@{
+    var isOpen = Model == "Open" || Model == "InProgress" || Model == "Completed";
+    var isInProgress = Model == "InProgress" || Model == "Completed";
+    var isCompleted = Model == "Completed";
+}
+
+<div class="job-status-tracker py-4 mb-4">
+    <div class="position-relative d-flex justify-content-between align-items-start">
+        <!-- Progress Line Base -->
+        <div class="tracker-line position-absolute start-0 end-0 bg-light" style="top: 24px; height: 4px; z-index: 0;"></div>
+        
+        <!-- Progress Line Active -->
+        <div class="tracker-line-active position-absolute start-0 bg-primary" 
+             style="top: 24px; height: 4px; z-index: 1; transition: width 0.5s ease; width: @(isCompleted ? "100%" : isInProgress ? "50%" : "0%");"></div>
+
+        <!-- Step 1: Open -->
+        <div class="tracker-step position-relative text-center" style="z-index: 2; width: 33%;">
+            <div class="tracker-icon d-flex align-items-center justify-content-center rounded-circle mx-auto mb-2 shadow-sm @(isOpen ? "bg-primary text-white" : "bg-white text-muted border")" style="width: 48px; height: 48px;">
+                <i class="fas fa-bullhorn fa-lg"></i>
+            </div>
+            <div class="fw-bold @(isOpen ? "text-primary" : "text-muted")">Open</div>
+            <small class="text-muted d-block" style="font-size: 0.75rem;">Seeking Professionals</small>
+        </div>
+
+        <!-- Step 2: In Progress -->
+        <div class="tracker-step position-relative text-center" style="z-index: 2; width: 33%;">
+            <div class="tracker-icon d-flex align-items-center justify-content-center rounded-circle mx-auto mb-2 shadow-sm @(isInProgress ? "bg-primary text-white" : "bg-white text-muted border")" style="width: 48px; height: 48px;">
+                <i class="fas fa-tools fa-lg"></i>
+            </div>
+            <div class="fw-bold @(isInProgress ? "text-primary" : "text-muted")">In Progress</div>
+            <small class="text-muted d-block" style="font-size: 0.75rem;">Professional Hired</small>
+        </div>
+
+        <!-- Step 3: Completed -->
+        <div class="tracker-step position-relative text-center" style="z-index: 2; width: 33%;">
+            <div class="tracker-icon d-flex align-items-center justify-content-center rounded-circle mx-auto mb-2 shadow-sm @(isCompleted ? "bg-success text-white" : "bg-white text-muted border")" style="width: 48px; height: 48px;">
+                <i class="fas fa-check-circle fa-lg"></i>
+            </div>
+            <div class="fw-bold @(isCompleted ? "text-success" : "text-muted")">Completed</div>
+            <small class="text-muted d-block" style="font-size: 0.75rem;">Job Done & Marked</small>
+        </div>
+    </div>
+</div>

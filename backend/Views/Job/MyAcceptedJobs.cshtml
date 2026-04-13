@@ -19,13 +19,13 @@
     <div class="row g-4">
         @if (Model != null && Model.Any())
         {
-            @foreach (var job in Model.OrderByDescending(j => j.Status == "Accepted"))
+            @foreach (var job in Model.OrderByDescending(j => j.Status == "InProgress"))
             {
                 <div class="col-lg-6 animate-up">
                     <div class="card h-100 shadow-sm border-0 job-card dashboard-card">
                         <div class="card-body p-4">
                             <div class="d-flex justify-content-between align-items-start mb-3">
-                                <span class="badge @(job.Status == "Accepted" ? "bg-info" : "bg-success") text-dark px-3 py-2 rounded-pill fw-bold">@job.Status</span>
+                                <span class="badge @(job.Status == "InProgress" ? "bg-info" : "bg-success") text-dark px-3 py-2 rounded-pill fw-bold">@(job.Status == "InProgress" ? "In Progress" : job.Status)</span>
                                 <div class="text-muted small">
                                     <i class="far fa-calendar-check me-1"></i> @job.CreatedAt.ToString("MMM dd, yyyy")
                                 </div>
@@ -50,7 +50,7 @@
 
                             <hr class="opacity-25 mb-4">
                             <div class="d-flex justify-content-between align-items-center">
-                                @if (job.Status == "Accepted")
+                                @if (job.Status == "InProgress")
                                 {
                                     <form asp-action="CompleteJob" asp-route-id="@job.Id" method="post">
                                         <button type="submit" class="btn btn-success rounded-pill px-4 shadow">Mark as Completed</button>
