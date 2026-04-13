@@ -1,0 +1,29 @@
+{
+  "name": "karigaar-360-blue-collar-workforce-platform",
+  "version": "1.0.0",
+  "description": "Karigaar-360 is a comprehensive web platform built with ASP.NET Core MVC that connects blue-collar workers with customers needing various services. The platform enables:\r - **Workers** to create detailed profiles showcasing their skills, experience, and availability\r - **Customers** to post job requirements with fair pricing and transparent bidding\r - **Rating System** to build trust through verified customer/worker feedback\r - **Fair Wage Assurance** through transparent pricing and dispute resolution mechanisms\r - **Location-Based Matching** to connect workers and jobs by geographic proximity",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RafiaMohsin/Karigaar-360-Blue-Collar-Workforce-Platform.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/RafiaMohsin/Karigaar-360-Blue-Collar-Workforce-Platform/issues"
+  },
+  "homepage": "https://github.com/RafiaMohsin/Karigaar-360-Blue-Collar-Workforce-Platform#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  }
+}

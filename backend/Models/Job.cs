@@ -27,6 +27,7 @@ namespace Karigaar360.Models
         public decimal FairPrice { get; set; }
 
         [Required]
+        [Range(1, 10000000, ErrorMessage = "Please enter a valid offered price.")]
         [Column(TypeName = "decimal(10,2)")]
         public decimal OfferedPrice { get; set; }
 

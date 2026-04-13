@@ -25,6 +25,6 @@ namespace Karigaar360.Models
 
         public string Status { get; set; } = "Pending"; // Pending, Accepted, Rejected
 
-        public DateTime AppliedAt { get; set; } = DateTime.Now;
+        public DateTime AppliedAt { get; set; } = DateTime.UtcNow;
     }
 }
