@@ -130,13 +130,30 @@
                             <div class="d-grid gap-3 mt-5">
                                 @if (isWorker && Model.Status == "Open")
                                 {
-                                    <form asp-action="ApplyForJob" asp-route-id="@Model.Id" method="post">
-                                        <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill shadow">Apply For This Job</button>
-                                    </form>
+                                    var alreadyApplied = ViewBag.AlreadyApplied as bool? ?? false;
+                                    var canApply = ViewBag.CanApply as bool? ?? false;
+                                    if (!canApply)
+                                    {
+                                        <button type="button" class="btn btn-outline-secondary btn-lg w-100 rounded-pill shadow" disabled>
+                                            Not in Your Profession
+                                        </button>
+                                    }
+                                    else if (alreadyApplied)
+                                    {
+                                        <button type="button" class="btn btn-outline-secondary btn-lg w-100 rounded-pill shadow" disabled>
+                                            Request Sent
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <form asp-action="ApplyForJob" asp-route-id="@Model.Id" method="post" data-prevent-double-submit="true">
+                                            <button type="submit" class="btn btn-primary btn-lg w-100 rounded-pill shadow">Apply For This Job</button>
+                                        </form>
+                                    }
                                 }
                                 else if (isWorker && Model.Status == "InProgress" && Model.WorkerId == currentWorkerId)
                                 {
-                                    <form asp-action="CompleteJob" asp-route-id="@Model.Id" method="post">
+                                    <form asp-action="CompleteJob" asp-route-id="@Model.Id" method="post" data-prevent-double-submit="true">
                                         <button type="submit" class="btn btn-success btn-lg w-100 rounded-pill shadow">Mark as Completed</button>
                                     </form>
                                 }

@@ -114,10 +114,26 @@ public class JobController : Controller
             return NotFound();
         }
 
+        var workerId = HttpContext.Session.GetInt32("WorkerId");
+        ViewBag.CurrentWorkerId = workerId;
+        ViewBag.AlreadyApplied = false;
+        ViewBag.CanApply = false;
+
+        if (workerId != null)
+        {
+            var worker = await _context.Workers.FindAsync(workerId);
+            if (worker != null)
+            {
+                ViewBag.CanApply = job.Category == worker.Profession;
+                ViewBag.AlreadyApplied = await _context.JobApplications
+                    .AnyAsync(a => a.JobId == id && a.WorkerId == workerId);
+            }
+        }
+
         return View(job);
     }
 
-    public async Task<IActionResult> Browse()
+    public async Task<IActionResult> Browse(string? searchTerm)
     {
         var workerId = HttpContext.Session.GetInt32("WorkerId");
         if (workerId == null)
@@ -125,39 +141,93 @@ public class JobController : Controller
             return RedirectToAction("Login", "Worker");
         }
 
-        // Get jobs that are open
-        var jobs = await _context.Jobs
-            .Where(j => j.Status == "Open")
+        var worker = await _context.Workers.FindAsync(workerId);
+        if (worker == null)
+        {
+            return RedirectToAction("Login", "Worker");
+        }
+
+        var normalizedSearch = string.IsNullOrWhiteSpace(searchTerm)
+            ? string.Empty
+            : searchTerm.Trim().Length > 100
+                ? searchTerm.Trim()[..100]
+                : searchTerm.Trim();
+
+        var jobsQuery = _context.Jobs
+            .Where(j => j.Status == "Open" && j.Category == worker.Profession);
+
+        if (!string.IsNullOrEmpty(normalizedSearch))
+        {
+            jobsQuery = jobsQuery.Where(j =>
+                j.Title.Contains(normalizedSearch) ||
+                j.Description.Contains(normalizedSearch) ||
+                j.Location.Contains(normalizedSearch));
+        }
+
+        var jobs = await jobsQuery
             .OrderByDescending(j => j.CreatedAt)
             .ToListAsync();
 
-        return View(jobs);
+        var appliedJobIds = await _context.JobApplications
+            .Where(a => a.WorkerId == workerId)
+            .Select(a => a.JobId)
+            .ToHashSetAsync();
+
+        var viewModel = new JobBrowseViewModel
+        {
+            Jobs = jobs,
+            AppliedJobIds = appliedJobIds,
+            SearchTerm = normalizedSearch,
+            WorkerProfession = worker.Profession
+        };
+
+        return View(viewModel);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> ApplyForJob(int id)
     {
+        if (id <= 0)
+        {
+            TempData["Error"] = "Invalid job request.";
+            return RedirectToAction(nameof(Browse));
+        }
+
         var workerId = HttpContext.Session.GetInt32("WorkerId");
         if (workerId == null)
         {
             return RedirectToAction("Login", "Worker");
         }
 
-        // Check if already applied
+        var worker = await _context.Workers.FindAsync(workerId);
+        if (worker == null)
+        {
+            return RedirectToAction("Login", "Worker");
+        }
+
         var alreadyApplied = await _context.JobApplications
             .AnyAsync(a => a.JobId == id && a.WorkerId == workerId);
-        
+
         if (alreadyApplied)
         {
-            TempData["Error"] = "You have already applied for this job.";
+            TempData["Error"] = "You have already requested this job.";
             return RedirectToAction(nameof(Details), new { id });
         }
 
-        var job = await _context.Jobs.FindAsync(id);
-        if (job == null || job.Status != "Open")
+        var job = await _context.Jobs
+            .FirstOrDefaultAsync(j => j.Id == id && j.Status == "Open");
+
+        if (job == null)
         {
-            return NotFound();
+            TempData["Error"] = "This job is no longer available.";
+            return RedirectToAction(nameof(Browse));
+        }
+
+        if (job.Category != worker.Profession)
+        {
+            TempData["Error"] = "You can only apply for jobs in your profession.";
+            return RedirectToAction(nameof(Browse));
         }
 
         var application = new JobApplication
@@ -170,7 +240,7 @@ public class JobController : Controller
         _context.JobApplications.Add(application);
         await _context.SaveChangesAsync();
 
-        TempData["Success"] = "Application submitted successfully!";
+        TempData["Success"] = "Work request sent successfully.";
         return RedirectToAction(nameof(Browse));
     }
 
