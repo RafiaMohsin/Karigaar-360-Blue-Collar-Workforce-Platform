@@ -92,6 +92,10 @@
                                     {
                                         <a asp-action="ViewApplicants" asp-route-jobId="@job.Id" class="btn btn-primary rounded-pill px-4">View Applicants</a>
                                     }
+                                    @if (job.Status == "Completed")
+                                    {
+                                        <a asp-action="RateWorker" asp-route-jobId="@job.Id" class="btn btn-warning rounded-pill px-4">Rate Worker</a>
+                                    }
                                 </div>
                             </div>
                         </div>

@@ -40,5 +40,15 @@ namespace Karigaar360.Models
 
         [ValidateNever]
         public bool IsAvailable { get; set; } = true;
+
+        [ValidateNever]
+        public string? PortfolioImage1 { get; set; }
+        [ValidateNever]
+        public string? PortfolioImage2 { get; set; }
+        [ValidateNever]
+        public string? PortfolioImage3 { get; set; }
+
+        [ValidateNever]
+        public double SkillScore { get; set; } = 0.0;
     }
 }

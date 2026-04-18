@@ -1,0 +1,126 @@
+@model Karigaar360.Models.Worker
+
+@{
+    ViewData["Title"] = Model.FullName + " - Profile";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Left Sidebar: Basic Info -->
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body text-center">
+                    <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 100px; height: 100px; font-size: 3rem;">
+                        @Model.FullName.Substring(0, 1).ToUpper()
+                    </div>
+                    <h4>@Model.FullName</h4>
+                    <p class="text-muted"><i class="bi bi-briefcase"></i> @Model.Profession</p>
+                    <div class="mb-3">
+                        <span class="badge bg-warning text-dark fs-6">
+                            <i class="bi bi-star-fill"></i> @Model.Rating.ToString("F1")
+                        </span>
+                        <span class="badge bg-info text-white fs-6">
+                            @Model.TotalJobsCompleted Jobs Done
+                        </span>
+                    </div>
+                    <hr />
+                    <ul class="list-unstyled text-start">
+                        <li class="mb-2"><i class="bi bi-clock-history me-2"></i> <strong>Experience:</strong> @Model.ExperienceYears Years</li>
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> <strong>Location:</strong> @Model.Location</li>
+                        <li class="mb-2"><i class="bi bi-lightning me-2"></i> <strong>Skill Score:</strong> @Model.SkillScore.ToString("F0")</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content: Portfolio & Reviews -->
+        <div class="col-md-8">
+            <!-- Portfolio Section -->
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="mb-0 text-primary"><i class="bi bi-image"></i> Work Portfolio</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        @if (string.IsNullOrEmpty(Model.PortfolioImage1) && string.IsNullOrEmpty(Model.PortfolioImage2) && string.IsNullOrEmpty(Model.PortfolioImage3))
+                        {
+                            <div class="col-12 text-center text-muted">
+                                <p>No portfolio images uploaded yet.</p>
+                            </div>
+                        }
+                        else
+                        {
+                            @if (!string.IsNullOrEmpty(Model.PortfolioImage1))
+                            {
+                                <div class="col-md-4">
+                                    <img src="@Model.PortfolioImage1" class="img-fluid rounded shadow-sm portfolio-img" alt="Work 1" />
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.PortfolioImage2))
+                            {
+                                <div class="col-md-4">
+                                    <img src="@Model.PortfolioImage2" class="img-fluid rounded shadow-sm portfolio-img" alt="Work 2" />
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.PortfolioImage3))
+                            {
+                                <div class="col-md-4">
+                                    <img src="@Model.PortfolioImage3" class="img-fluid rounded shadow-sm portfolio-img" alt="Work 3" />
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reviews Section -->
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-bottom">
+                    <h5 class="mb-0 text-primary"><i class="bi bi-chat-left-quote"></i> Customer Reviews</h5>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.Reviews != null && ((IEnumerable<Karigaar360.Models.Rating>)ViewBag.Reviews).Any())
+                    {
+                        foreach (var review in (IEnumerable<Karigaar360.Models.Rating>)ViewBag.Reviews)
+                        {
+                            <div class="mb-4 pb-3 border-bottom">
+                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                    <h6 class="mb-0">@review.Customer?.FullName</h6>
+                                    <small class="text-muted">@review.RatedAt.ToString("MMM dd, yyyy")</small>
+                                </div>
+                                <div class="text-warning mb-2">
+                                    @for (int i = 0; i < review.Stars; i++)
+                                    {
+                                        <i class="bi bi-star-fill"></i>
+                                    }
+                                    @for (int i = review.Stars; i < 5; i++)
+                                    {
+                                        <i class="bi bi-star"></i>
+                                    }
+                                </div>
+                                <p class="mb-0">@review.Review</p>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-center text-muted">No reviews yet.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .portfolio-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    .portfolio-img:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+</style>

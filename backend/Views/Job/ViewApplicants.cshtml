@@ -46,40 +46,50 @@
                             </div>
 
                             <div class="row g-2 mb-4 text-center">
-                                <div class="col-6">
-                                    <div class="bg-light p-2 rounded">
-                                        <small class="text-muted d-block small">Experience</small>
-                                        <span class="fw-bold">@app.Worker.ExperienceYears yrs</span>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="bg-light p-2 rounded">
-                                        <small class="text-muted d-block small">Rating</small>
-                                        <span class="fw-bold text-warning">
-                                            <i class="fas fa-star me-1"></i>@app.Worker.Rating.ToString("F1")
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                                 <div class="col-4">
+                                     <div class="bg-light p-2 rounded">
+                                         <small class="text-muted d-block small">Years</small>
+                                         <span class="fw-bold">@app.Worker.ExperienceYears</span>
+                                     </div>
+                                 </div>
+                                 <div class="col-4">
+                                     <div class="bg-light p-2 rounded">
+                                         <small class="text-muted d-block small">Rating</small>
+                                         <span class="fw-bold text-warning">
+                                             <i class="fas fa-star me-1"></i>@app.Worker.Rating.ToString("F1")
+                                         </span>
+                                     </div>
+                                 </div>
+                                 <div class="col-4">
+                                     <div class="bg-light p-2 rounded">
+                                         <small class="text-muted d-block small">Score</small>
+                                         <span class="fw-bold text-primary">@app.Worker.SkillScore.ToString("F0")</span>
+                                     </div>
+                                 </div>
+                             </div>
 
-                            <div class="mb-4">
-                                <small class="text-muted d-block mb-1">Location</small>
-                                <p class="mb-0 small"><i class="fas fa-map-marker-alt text-muted me-2"></i>@app.Worker.Location</p>
-                            </div>
+                             <div class="mb-4">
+                                 <small class="text-muted d-block mb-1">Location</small>
+                                 <p class="mb-0 small"><i class="fas fa-map-marker-alt text-muted me-2"></i>@app.Worker.Location</p>
+                             </div>
 
-                            @if (app.Status == "Pending")
-                            {
-                                <form asp-action="HireWorker" method="post">
-                                    <input type="hidden" name="applicationId" value="@app.Id" />
-                                    <button type="submit" class="btn btn-primary w-100 rounded-pill fw-bold shadow-sm">
-                                        Hire this Karigaar
-                                    </button>
-                                </form>
-                            }
-                            else if (app.Status == "Rejected")
-                            {
-                                <button class="btn btn-light w-100 rounded-pill disabled" disabled>Not Selected</button>
-                            }
+                             <div class="d-grid gap-2">
+                                 <a asp-controller="Worker" asp-action="Profile" asp-route-id="@app.WorkerId" class="btn btn-outline-primary rounded-pill btn-sm">View Portfolio</a>
+                                 
+                                 @if (app.Status == "Pending")
+                                 {
+                                     <form asp-action="HireWorker" method="post">
+                                         <input type="hidden" name="applicationId" value="@app.Id" />
+                                         <button type="submit" class="btn btn-primary w-100 rounded-pill fw-bold shadow-sm">
+                                             Hire this Karigaar
+                                         </button>
+                                     </form>
+                                 }
+                                 else if (app.Status == "Rejected")
+                                 {
+                                     <button class="btn btn-light w-100 rounded-pill disabled" disabled>Not Selected</button>
+                                 }
+                             </div>
                         </div>
                     </div>
                 </div>

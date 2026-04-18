@@ -1,0 +1,86 @@
+@model Karigaar360.Models.Worker
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow border-0 rounded-lg">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="text-center font-weight-light my-2">Edit Your Profile</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="EditProfile" method="post" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="FullName" class="form-label font-weight-bold">Full Name</label>
+                                <input asp-for="FullName" class="form-control" placeholder="Enter full name" />
+                                <span asp-validation-for="FullName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Location" class="form-label font-weight-bold">Location</label>
+                                <input asp-for="Location" class="form-control" placeholder="City" />
+                                <span asp-validation-for="Location" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Profession" class="form-label font-weight-bold">Profession</label>
+                                <select asp-for="Profession" class="form-select">
+                                    <option value="">Choose...</option>
+                                    <option value="Plumber">Plumber</option>
+                                    <option value="Electrician">Electrician</option>
+                                    <option value="Carpenter">Carpenter</option>
+                                    <option value="Painter">Painter</option>
+                                    <option value="Mason">Mason</option>
+                                    <option value="Laborer">General Laborer</option>
+                                </select>
+                                <span asp-validation-for="Profession" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ExperienceYears" class="form-label font-weight-bold">Years of Experience</label>
+                                <input asp-for="ExperienceYears" type="number" class="form-control" />
+                                <span asp-validation-for="ExperienceYears" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <hr />
+                        <h5 class="mb-3 text-primary">Portfolio Images (Up to 3)</h5>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Work Image 1</label>
+                                @if (!string.IsNullOrEmpty(Model.PortfolioImage1)) {
+                                    <div class="mb-2"><img src="@Model.PortfolioImage1" width="100%" class="rounded" /></div>
+                                }
+                                <input type="file" name="img1" class="form-control form-control-sm" accept="image/*" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Work Image 2</label>
+                                @if (!string.IsNullOrEmpty(Model.PortfolioImage2)) {
+                                    <div class="mb-2"><img src="@Model.PortfolioImage2" width="100%" class="rounded" /></div>
+                                }
+                                <input type="file" name="img2" class="form-control form-control-sm" accept="image/*" />
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Work Image 3</label>
+                                @if (!string.IsNullOrEmpty(Model.PortfolioImage3)) {
+                                    <div class="mb-2"><img src="@Model.PortfolioImage3" width="100%" class="rounded" /></div>
+                                }
+                                <input type="file" name="img3" class="form-control form-control-sm" accept="image/*" />
+                            </div>
+                        </div>
+
+                        <div class="mt-4 mb-0 text-center">
+                            <button type="submit" class="btn btn-primary px-5">Save Changes</button>
+                            <a asp-action="Dashboard" class="btn btn-outline-secondary px-5 ms-2">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

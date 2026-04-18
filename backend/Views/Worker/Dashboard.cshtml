@@ -34,10 +34,17 @@
                         <a asp-controller="Job" asp-action="Browse" class="btn btn-primary">
                             <i class="fas fa-search me-2"></i> Find New Jobs
                         </a>
-                        <a asp-controller="Job" asp-action="MyAcceptedJobs" class="btn btn-outline-primary text-start">
+                        <a asp-controller="Worker" asp-action="EditProfile" class="btn btn-warning">
+                            <i class="fas fa-edit me-2"></i> Edit Portfolio
+                        </a>
+                        <a asp-controller="Worker" asp-action="Profile" asp-route-id="@Context.Session.GetInt32("WorkerId")" class="btn btn-info text-dark">
+                            <i class="fas fa-eye me-2"></i> View My Public Profile
+                        </a>
+                        <hr>
+                        <a asp-controller="Job" asp-action="MyAcceptedJobs" class="btn btn-outline-primary text-start border-0">
                             <i class="fas fa-tasks me-2"></i> My Active Jobs
                         </a>
-                        <a asp-controller="Job" asp-action="MyApplications" class="btn btn-outline-secondary text-start">
+                        <a asp-controller="Job" asp-action="MyApplications" class="btn btn-outline-secondary text-start border-0">
                             <i class="fas fa-paper-plane me-2"></i> My Applications
                         </a>
                     </div>

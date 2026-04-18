@@ -295,16 +295,40 @@ public class JobController : Controller
         job.Status = "Completed";
         job.CompletedAt = DateTime.UtcNow;
 
-        // Update worker stats
-        var worker = await _context.Workers.FindAsync(workerId);
-        if (worker != null)
-        {
-            worker.TotalJobsCompleted += 1;
-        }
-
         await _context.SaveChangesAsync();
 
+        // Update worker stats (Jobs completed count, earnings, skill score)
+        await UpdateWorkerStats(workerId.Value);
+
         return RedirectToAction(nameof(MyAcceptedJobs));
+    }
+
+    private async Task UpdateWorkerStats(int workerId)
+    {
+        var worker = await _context.Workers.FindAsync(workerId);
+        if (worker == null) return;
+
+        // 1. Total Jobs Completed
+        worker.TotalJobsCompleted = await _context.Jobs.CountAsync(j => j.WorkerId == workerId && j.Status == "Completed");
+
+        // 2. Average Rating
+        var ratings = await _context.Ratings.Where(r => r.WorkerId == workerId).ToListAsync();
+        if (ratings.Any())
+        {
+            worker.Rating = ratings.Average(r => r.Stars);
+        }
+
+        // 3. Skill Score: (Average Rating × (Jobs Completed in Last Week + 1) × Experience)
+        var lastWeek = DateTime.UtcNow.AddDays(-7);
+        var jobsLastWeek = await _context.Jobs
+            .CountAsync(j => j.WorkerId == workerId && j.Status == "Completed" && j.CompletedAt >= lastWeek);
+        
+        // Experience is at least 1 for calculation purposes
+        int exp = (worker.ExperienceYears ?? 0) > 0 ? worker.ExperienceYears.Value : 1;
+        
+        worker.SkillScore = worker.Rating * (jobsLastWeek + 1) * exp;
+
+        await _context.SaveChangesAsync();
     }
 
     public async Task<IActionResult> ViewApplicants(int jobId)
@@ -327,6 +351,7 @@ public class JobController : Controller
         var applicants = await _context.JobApplications
             .Include(a => a.Worker)
             .Where(a => a.JobId == jobId)
+            .OrderByDescending(a => a.Worker!.SkillScore)
             .ToListAsync();
 
         ViewBag.JobTitle = job!.Title;
@@ -381,5 +406,61 @@ public class JobController : Controller
         await _context.SaveChangesAsync();
 
         return RedirectToAction(nameof(MyJobs));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> RateWorker(int jobId)
+    {
+        var customerId = HttpContext.Session.GetInt32("CustomerId");
+        if (customerId == null) return RedirectToAction("Login", "Customer");
+
+        var job = await _context.Jobs
+            .Include(j => j.Worker)
+            .FirstOrDefaultAsync(j => j.Id == jobId && j.CustomerId == customerId && j.Status == "Completed");
+
+        if (job == null || job.WorkerId == null) return NotFound();
+
+        // Check if already rated
+        var existingRating = await _context.Ratings.FirstOrDefaultAsync(r => r.JobId == jobId);
+        if (existingRating != null)
+        {
+            TempData["Error"] = "You have already rated this worker for this job.";
+            return RedirectToAction(nameof(MyJobs));
+        }
+
+        var rating = new Rating
+        {
+            JobId = jobId,
+            WorkerId = job.WorkerId.Value,
+            CustomerId = customerId.Value
+        };
+
+        ViewBag.WorkerName = job.WorkerName;
+        ViewBag.JobTitle = job.Title;
+
+        return View(rating);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> RateWorker(Rating rating)
+    {
+        var customerId = HttpContext.Session.GetInt32("CustomerId");
+        if (customerId == null) return RedirectToAction("Login", "Customer");
+
+        if (ModelState.IsValid)
+        {
+            rating.RatedAt = DateTime.UtcNow;
+            _context.Ratings.Add(rating);
+            await _context.SaveChangesAsync();
+
+            // Update Worker stats (Rating and Skill Score)
+            await UpdateWorkerStats(rating.WorkerId);
+
+            TempData["Success"] = "Thank you for your rating!";
+            return RedirectToAction(nameof(MyJobs));
+        }
+
+        return View(rating);
     }
 }

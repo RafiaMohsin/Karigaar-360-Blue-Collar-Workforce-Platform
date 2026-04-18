@@ -120,7 +120,7 @@
                                         <i class="fas fa-user-hard-hat fa-2x text-primary me-3"></i>
                                         <div>
                                             <span class="fw-bold d-block">@Model.WorkerName</span>
-                                            <span class="badge bg-light text-primary">Assigned Professional</span>
+                                            <a asp-controller="Worker" asp-action="Profile" asp-route-id="@Model.WorkerId" class="small text-decoration-none">View Profile & Portfolio</a>
                                         </div>
                                     </div>
                                 </div>

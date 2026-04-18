@@ -1,0 +1,85 @@
+@model Karigaar360.Models.Rating
+
+@{
+    ViewData["Title"] = "Rate Worker";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="font-weight-light my-2">Rate Worker: @ViewBag.WorkerName</h3>
+                    <p class="mb-0">Job: @ViewBag.JobTitle</p>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="RateWorker" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" asp-for="JobId" />
+                        <input type="hidden" asp-for="WorkerId" />
+                        <input type="hidden" asp-for="CustomerId" />
+
+                        <div class="mb-4 text-center">
+                            <label class="form-label d-block fw-bold">Select Rating</label>
+                            <div class="star-rating fs-2">
+                                <input type="radio" asp-for="Stars" value="5" id="star5" class="d-none" required />
+                                <label for="star5" class="text-warning clickable" onclick="setRating(5)"><i class="bi bi-star" id="i5"></i></label>
+                                
+                                <input type="radio" asp-for="Stars" value="4" id="star4" class="d-none" />
+                                <label for="star4" class="text-warning clickable" onclick="setRating(4)"><i class="bi bi-star" id="i4"></i></label>
+                                
+                                <input type="radio" asp-for="Stars" value="3" id="star3" class="d-none" />
+                                <label for="star3" class="text-warning clickable" onclick="setRating(3)"><i class="bi bi-star" id="i3"></i></label>
+                                
+                                <input type="radio" asp-for="Stars" value="2" id="star2" class="d-none" />
+                                <label for="star2" class="text-warning clickable" onclick="setRating(2)"><i class="bi bi-star" id="i2"></i></label>
+                                
+                                <input type="radio" asp-for="Stars" value="1" id="star1" class="d-none" />
+                                <label for="star1" class="text-warning clickable" onclick="setRating(1)"><i class="bi bi-star" id="i1"></i></label>
+                            </div>
+                            <span asp-validation-for="Stars" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <textarea asp-for="Review" class="form-control" placeholder="Leave a comment here" style="height: 100px"></textarea>
+                            <label asp-for="Review">Feedback (Optional)</label>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Submit Rating</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function setRating(n) {
+            for (let i = 1; i <= 5; i++) {
+                const star = document.getElementById('i' + i);
+                if (i <= n) {
+                    star.classList.remove('bi-star');
+                    star.classList.add('bi-star-fill');
+                } else {
+                    star.classList.remove('bi-star-fill');
+                    star.classList.add('bi-star');
+                }
+            }
+        }
+    </script>
+    <style>
+        .clickable { cursor: pointer; }
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+        }
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #ffc107 !important;
+        }
+    </style>
+}

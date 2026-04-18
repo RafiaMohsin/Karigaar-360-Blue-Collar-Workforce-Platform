@@ -28,18 +28,18 @@
             <div class="card shadow-sm border-0 animate-up" style="animation-delay: 0.1s;">
                 <div class="card-body p-4">
                     <h5 class="fw-bold mb-3">Account Summary</h5>
-                    <div class="list-group list-group-flush">
+                        <div class="list-group list-group-flush">
                         <div class="list-group-item d-flex justify-content-between align-items-center px-0">
                             <span>Total Posts</span>
-                            <span class="badge bg-primary rounded-pill">5</span>
+                            <span class="badge bg-primary rounded-pill">@ViewBag.TotalJobs</span>
                         </div>
                         <div class="list-group-item d-flex justify-content-between align-items-center px-0">
                             <span>Completed</span>
-                            <span class="badge bg-success rounded-pill">2</span>
+                            <span class="badge bg-success rounded-pill">@ViewBag.CompletedJobs</span>
                         </div>
                         <div class="list-group-item d-flex justify-content-between align-items-center px-0">
                             <span>Active</span>
-                            <span class="badge bg-info rounded-pill text-dark">3</span>
+                            <span class="badge bg-info rounded-pill text-dark">@ViewBag.ActiveJobs</span>
                         </div>
                     </div>
                 </div>

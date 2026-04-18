@@ -63,9 +63,18 @@ public class CustomerController : Controller
         return View();
     }
 
-    public IActionResult Dashboard()
+    public async Task<IActionResult> Dashboard()
     {
+        var customerId = HttpContext.Session.GetInt32("CustomerId");
+        if (customerId == null) return RedirectToAction(nameof(Login));
+
         var userName = HttpContext.Session.GetString("CustomerName") ?? "Customer";
+        
+        // Real stats
+        ViewBag.TotalJobs = await _context.Jobs.CountAsync(j => j.CustomerId == customerId);
+        ViewBag.CompletedJobs = await _context.Jobs.CountAsync(j => j.CustomerId == customerId && j.Status == "Completed");
+        ViewBag.ActiveJobs = await _context.Jobs.CountAsync(j => j.CustomerId == customerId && j.Status == "InProgress");
+        
         ViewBag.UserName = userName;
         return View();
     }
