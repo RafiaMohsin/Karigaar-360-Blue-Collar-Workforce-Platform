@@ -3,13 +3,13 @@
 
 ---
 
-## 📋 Overview
+## Overview
 
 This directory contains all database-related files for the Karigaar-360 project, including schema definitions, sample data, and Entity Relationship Diagrams.
 
 ---
 
-## 📁 File Structure
+## File Structure
 
 ```
 database/
@@ -21,7 +21,7 @@ database/
 
 ---
 
-## 📊 Database Details
+## Database Details
 
 ### **Database Type**: SQLite (for development) / Can migrate to SQL Server, MySQL, PostgreSQL
 
@@ -39,7 +39,7 @@ database/
 
 ---
 
-## 📄 File Descriptions
+## File Descriptions
 
 ### 1. **schema.sql**
 Contains the complete database schema with:
@@ -107,7 +107,7 @@ Visual Entity Relationship Diagram including:
 
 ---
 
-## 🗂️ Entity Relationship Summary
+## Entity Relationship Summary
 
 ### **Relationship Diagram**
 
@@ -161,7 +161,7 @@ WORKERS (Independent)
 
 ---
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### **Option 1: Using .NET Entity Framework Migrations (Recommended)**
 The project already has EF Core migrations set up. Just run:
@@ -197,7 +197,7 @@ sqlite3 Karigaar360.db < ../database/seed.sql
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 ### **Password Storage**
 - Passwords are stored as hashes (bcrypt/SHA-256)
@@ -217,7 +217,7 @@ sqlite3 Karigaar360.db < ../database/seed.sql
 
 ---
 
-## 📊 Sample Data Details
+## Sample Data Details
 
 ### **Customer Sample**
 ```
@@ -274,7 +274,7 @@ Home Electrical Wiring
 
 ---
 
-## ✅ Testing Checklist
+## Testing Checklist
 
 - [ ] Schema creates all 3 tables successfully
 - [ ] All primary keys are auto-increment
@@ -289,7 +289,7 @@ Home Electrical Wiring
 
 ---
 
-## 🔄 Future Enhancements
+## Future Enhancements
 
 Consider adding these tables in future iterations:
 
@@ -335,7 +335,7 @@ CREATE TABLE Payments (
 
 ---
 
-## 📞 Support & Questions
+## Support & Questions
 
 For issues or questions regarding the database:
 1. Check the ERD.md for relationship details
@@ -345,7 +345,7 @@ For issues or questions regarding the database:
 
 ---
 
-## 📋 Version History
+## Version History
 
 | Version | Date | Changes |
 |---------|------|---------|
@@ -357,4 +357,4 @@ For issues or questions regarding the database:
 
 **Last Updated**: March 24, 2026  
 **Database Tool**: SQLite3 / EF Core  
-**Status**: ✅ Production Ready
+**Status**: Production Ready
