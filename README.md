@@ -1,6 +1,6 @@
 # Karigaar-360: Blue Collar Workforce Platform
 
-## 📋 Description
+##  Description
 
 Karigaar-360 is a comprehensive web platform built with ASP.NET Core MVC that connects blue-collar workers with customers needing various services. The platform enables:
 - **Workers** to create detailed profiles showcasing their skills, experience, and availability
@@ -11,7 +11,7 @@ Karigaar-360 is a comprehensive web platform built with ASP.NET Core MVC that co
 
 ---
 
-## 👥 Team Members
+##  Team Members
 
 | Name | Roll Number |
 |------|------------|
@@ -22,7 +22,7 @@ Karigaar-360 is a comprehensive web platform built with ASP.NET Core MVC that co
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Component | Technology |
 |-----------|-----------|
@@ -34,7 +34,7 @@ Karigaar-360 is a comprehensive web platform built with ASP.NET Core MVC that co
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 Karigaar-360-Blue-Collar-Workforce-Platform/
@@ -54,7 +54,7 @@ Karigaar-360-Blue-Collar-Workforce-Platform/
 │   ├── register.html
 │   └── css/
 │
-├── database/                         # 📌 Database Schema & Data
+├── database/                         #  Database Schema & Data
 │   ├── schema.sql                    # Create TABLE statements
 │   ├── seed.sql                      # Sample & Test Data
 │   ├── ERD.md                        # Entity Relationship Diagram
@@ -70,7 +70,7 @@ Karigaar-360-Blue-Collar-Workforce-Platform/
 
 ---
 
-## 🚀 How to Run the Project
+##  How to Run the Project
 
 ### Prerequisites
 - **.NET 9.0 SDK** or later: [Download](https://dotnet.microsoft.com/download)
@@ -128,7 +128,7 @@ dotnet run --project backend/Karigaar360.csproj
 
 ---
 
-## 🗄️ Database Setup
+## Database Setup
 
 ### Quick Start (Recommended)
 
@@ -167,7 +167,7 @@ This allows you to test the application immediately after database setup.
 
 ---
 
-## 📊 Database Schema
+##  Database Schema
 
 The project uses three main tables:
 
@@ -218,7 +218,7 @@ For detailed schema documentation, see: [`database/ERD.md`](database/ERD.md)
 
 ---
 
-## 🎨 Project Design Resources
+##  Project Design Resources
 
 ### Figma Design (Site Map)
 View the project design and wireframes:
@@ -231,7 +231,7 @@ View the project design and wireframes:
 
 ---
 
-## 🧪 Testing the Application
+##  Testing the Application
 
 ### Test Accounts (with sample data)
 
@@ -261,20 +261,20 @@ Experience: 8 years
 
 ---
 
-## 🔐 Security Features
+##  Security Features
 
-- ✅ Password hashing (bcrypt)
-- ✅ SQL injection prevention (parameterized queries via EF Core)
-- ✅ CSRF token protection on forms
-- ✅ Email & Phone uniqueness constraints
-- ✅ User authentication (Session-based)
-- ✅ Role-based access (Customer vs Worker)
+-  Password hashing (bcrypt)
+-  SQL injection prevention (parameterized queries via EF Core)
+-  CSRF token protection on forms
+-  Email & Phone uniqueness constraints
+-  User authentication (Session-based)
+-  Role-based access (Customer vs Worker)
 
 **Note**: Never commit `.env` or `appsettings.json` with real API keys. Use `.env.example` template.
 
 ---
 
-## 📦 Dependencies
+##  Dependencies
 
 ### Main NuGet Packages
 - `Microsoft.EntityFrameworkCore` - ORM
@@ -289,7 +289,7 @@ dotnet list package
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 1. **Create a branch** for your feature:
    ```bash
@@ -312,17 +312,17 @@ dotnet list package
 
 ## 📋 Requirements Compliance
 
-✅ **GitHub Repository**: Public repository with all source code  
-✅ **Folder Structure**: Backend, Frontend, Database separated  
-✅ **Database Folder**: Contains schema.sql, seed.sql, ERD.md  
-✅ **README.md**: Comprehensive setup and project information  
-✅ **Documentation**: Iteration reports in docs/ folder  
-✅ **No API Keys**: Using .env.example template  
-✅ **Team Commits**: All members contribute to repository  
+ **GitHub Repository**: Public repository with all source code  
+ **Folder Structure**: Backend, Frontend, Database separated  
+ **Database Folder**: Contains schema.sql, seed.sql, ERD.md  
+ **README.md**: Comprehensive setup and project information  
+ **Documentation**: Iteration reports in docs/ folder  
+ **No API Keys**: Using .env.example template  
+ **Team Commits**: All members contribute to repository  
 
 ---
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 ### Issue: Database not found
 **Solution**: Run `dotnet ef database update` in backend directory
@@ -345,7 +345,7 @@ For more help, check: [ASP.NET Core Documentation](https://docs.microsoft.com/as
 
 ---
 
-## 📞 Contact & Support
+##  Contact & Support
 
 For issues, questions, or contributions:
 - Create an **Issue** on GitHub
@@ -354,23 +354,23 @@ For issues, questions, or contributions:
 
 ---
 
-## 📜 License
+##  License
 
 This project is part of FAST-NUCES coursework (Spring 2026).  
 Educational use only.
 
 ---
 
-## 📅 Project Timeline
+##  Project Timeline
 
 | Phase | Duration | Status |
 |-------|----------|--------|
-| **Iteration 1** | Week 1-2 | ✅ Completed |
-| **Iteration 2** | Week 3-4 | 🔄 In Progress |
-| **Final Submission** | End of Semester | ⏳ Pending |
+| **Iteration 1** | Week 1-2 |  Completed |
+| **Iteration 2** | Week 3-4 |  In Progress |
+| **Final Submission** | End of Semester |  Pending |
 
 ---
 
 **Last Updated**: March 24, 2026  
 **Version**: 1.0  
-**Status**: ✅ Active Development
+**Status**:  Active Development
