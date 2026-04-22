@@ -26,6 +26,13 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
+                    <form class="d-flex mx-auto search-nav-form" asp-controller="Explore" asp-action="Search" method="get">
+                        <div class="search-input-group">
+                            <i class="fas fa-search search-icon"></i>
+                            <input class="form-control nav-search-input" name="q" type="search" placeholder="Search Karigaars or Customers..." aria-label="Search">
+                            <button class="btn btn-search-go" type="submit">Search</button>
+                        </div>
+                    </form>
                     <ul class="navbar-nav ms-auto align-items-center">
                         <li class="nav-item"><a class="nav-link mx-2" asp-controller="Home" asp-action="Index">Home</a></li>
                         

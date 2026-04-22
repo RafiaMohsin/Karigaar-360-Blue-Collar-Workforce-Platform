@@ -1,54 +1,76 @@
 @model Karigaar360.Models.Rating
 
 @{
-    ViewData["Title"] = "Rate Worker";
+    ViewData["Title"] = "Rate Your Experience";
 }
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow-lg border-0 rounded-lg">
-                <div class="card-header bg-primary text-white text-center">
-                    <h3 class="font-weight-light my-2">Rate Worker: @ViewBag.WorkerName</h3>
-                    <p class="mb-0">Job: @ViewBag.JobTitle</p>
-                </div>
-                <div class="card-body p-4">
-                    <form asp-action="RateWorker" method="post">
-                        @Html.AntiForgeryToken()
-                        <input type="hidden" asp-for="JobId" />
-                        <input type="hidden" asp-for="WorkerId" />
-                        <input type="hidden" asp-for="CustomerId" />
+<div class="rating-page-wrapper py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="premium-card">
+                    <div class="card-glass-header text-center pt-5 pb-4 px-4">
+                        <div class="worker-avatar-glow mb-4 mx-auto">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <h2 class="fw-bold mb-1">Rate Your Experience</h2>
+                        <p class="text-muted text-center px-3">How was the service provided for <strong>@ViewBag.JobTitle</strong>?</p>
+                        <div class="badge bg-soft-primary px-3 py-2 mt-2">
+                            <i class="fas fa-user-circle me-1"></i> Worker: @ViewBag.WorkerName
+                        </div>
+                    </div>
 
-                        <div class="mb-4 text-center">
-                            <label class="form-label d-block fw-bold">Select Rating</label>
-                            <div class="star-rating fs-2">
-                                <input type="radio" asp-for="Stars" value="5" id="star5" class="d-none" required />
-                                <label for="star5" class="text-warning clickable" onclick="setRating(5)"><i class="bi bi-star" id="i5"></i></label>
-                                
-                                <input type="radio" asp-for="Stars" value="4" id="star4" class="d-none" />
-                                <label for="star4" class="text-warning clickable" onclick="setRating(4)"><i class="bi bi-star" id="i4"></i></label>
-                                
-                                <input type="radio" asp-for="Stars" value="3" id="star3" class="d-none" />
-                                <label for="star3" class="text-warning clickable" onclick="setRating(3)"><i class="bi bi-star" id="i3"></i></label>
-                                
-                                <input type="radio" asp-for="Stars" value="2" id="star2" class="d-none" />
-                                <label for="star2" class="text-warning clickable" onclick="setRating(2)"><i class="bi bi-star" id="i2"></i></label>
-                                
-                                <input type="radio" asp-for="Stars" value="1" id="star1" class="d-none" />
-                                <label for="star1" class="text-warning clickable" onclick="setRating(1)"><i class="bi bi-star" id="i1"></i></label>
+                    <div class="card-body p-4 p-lg-5 pt-2">
+                        <form asp-action="RateWorker" method="post" id="ratingForm">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" asp-for="JobId" />
+                            <input type="hidden" asp-for="WorkerId" />
+                            <input type="hidden" asp-for="CustomerId" />
+
+                            <div class="rating-section text-center mb-5">
+                                <label class="section-label mb-3">Overall Satisfaction</label>
+                                <div class="star-rating-container">
+                                    <div class="stars d-flex flex-row-reverse justify-content-center">
+                                        <input type="radio" asp-for="Stars" value="5" id="star5" required />
+                                        <label for="star5" title="Excellent"><i class="fas fa-star"></i></label>
+                                        
+                                        <input type="radio" asp-for="Stars" value="4" id="star4" />
+                                        <label for="star4" title="Very Good"><i class="fas fa-star"></i></label>
+                                        
+                                        <input type="radio" asp-for="Stars" value="3" id="star3" />
+                                        <label for="star3" title="Good"><i class="fas fa-star"></i></label>
+                                        
+                                        <input type="radio" asp-for="Stars" value="2" id="star2" />
+                                        <label for="star2" title="Fair"><i class="fas fa-star"></i></label>
+                                        
+                                        <input type="radio" asp-for="Stars" value="1" id="star1" />
+                                        <label for="star1" title="Poor"><i class="fas fa-star"></i></label>
+                                    </div>
+                                    <p id="star-desc" class="text-primary fw-600 mt-2 h5" style="height: 1.5rem;">Select Stars</p>
+                                    <span asp-validation-for="Stars" class="text-danger small mt-2"></span>
+                                </div>
                             </div>
-                            <span asp-validation-for="Stars" class="text-danger"></span>
-                        </div>
 
-                        <div class="form-floating mb-3">
-                            <textarea asp-for="Review" class="form-control" placeholder="Leave a comment here" style="height: 100px"></textarea>
-                            <label asp-for="Review">Feedback (Optional)</label>
-                        </div>
+                            <div class="feedback-section mb-4">
+                                <label asp-for="Review" class="form-label fw-bold mb-2">Share more details (Optional)</label>
+                                <div class="form-group position-relative">
+                                    <textarea asp-for="Review" class="form-control premium-input" placeholder="Tell us what you liked or how they can improve..." rows="4"></textarea>
+                                    <i class="fas fa-pen-nib input-icon"></i>
+                                </div>
+                            </div>
 
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary btn-lg">Submit Rating</button>
-                        </div>
-                    </form>
+                            <div class="action-group pt-3">
+                                <button type="submit" class="btn btn-premium-primary btn-lg w-100 py-3 shadow-sm" id="submitBtn">
+                                    Submit Feedback <i class="fas fa-paper-plane ms-2"></i>
+                                </button>
+                                <div class="text-center mt-3">
+                                    <a asp-action="MyJobs" class="text-muted text-decoration-none small hover-primary">
+                                        <i class="fas fa-arrow-left me-1"></i> Back to My Jobs
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -57,29 +79,180 @@
 
 @section Scripts {
     <script>
-        function setRating(n) {
-            for (let i = 1; i <= 5; i++) {
-                const star = document.getElementById('i' + i);
-                if (i <= n) {
-                    star.classList.remove('bi-star');
-                    star.classList.add('bi-star-fill');
+        $(document).ready(function() {
+            const starText = {
+                '1': 'Poor 😞',
+                '2': 'Fair 😐',
+                '3': 'Good 🙂',
+                '4': 'Very Good 😊',
+                '5': 'Excellent! 🤩'
+            };
+
+            $('.stars label').hover(function() {
+                const val = $(this).attr('for').replace('star', '');
+                $('#star-desc').text(starText[val]);
+            }, function() {
+                const checked = $('.stars input:checked').val();
+                if (checked) {
+                    $('#star-desc').text(starText[checked]);
                 } else {
-                    star.classList.remove('bi-star-fill');
-                    star.classList.add('bi-star');
+                    $('#star-desc').text('Select Stars');
                 }
-            }
-        }
+            });
+
+            $('.stars input').change(function() {
+                const val = $(this).val();
+                $('#star-desc').text(starText[val]);
+            });
+
+            $('#ratingForm').submit(function() {
+                const checked = $('.stars input:checked').val();
+                if(!checked) {
+                    $('#star-desc').text('Please select a rating! ⚠️').addClass('text-danger');
+                    return false;
+                }
+                $('#submitBtn').attr('disabled', true).html('<span class="spinner-border spinner-border-sm me-2"></span>Submitting...');
+            });
+        });
     </script>
-    <style>
-        .clickable { cursor: pointer; }
-        .star-rating {
-            display: flex;
-            flex-direction: row-reverse;
-            justify-content: center;
-        }
-        .star-rating label:hover,
-        .star-rating label:hover ~ label {
-            color: #ffc107 !important;
-        }
-    </style>
 }
+
+<style>
+    .rating-page-wrapper {
+        min-height: calc(100vh - 200px);
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    .premium-card {
+        background: #fff;
+        border-radius: 24px;
+        border: none;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    .card-glass-header {
+        background: linear-gradient(to bottom, rgba(0,123,255,0.05), transparent);
+    }
+
+    .worker-avatar-glow {
+        width: 80px;
+        height: 80px;
+        background: #007bff;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        box-shadow: 0 0 20px rgba(0,123,255,0.3);
+        animation: pulse 2s infinite;
+    }
+
+    .bg-soft-primary {
+        background-color: rgba(0,123,255,0.1);
+        color: #007bff;
+        border-radius: 50px;
+    }
+
+    .section-label {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.85rem;
+        color: #6c757d;
+    }
+
+    /* Star Rating Premium UI */
+    .stars {
+        gap: 12px;
+    }
+
+    .stars input {
+        display: none;
+    }
+
+    .stars label {
+        font-size: 2.5rem;
+        color: #dee2e6;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .stars input:checked ~ label,
+    .stars label:hover,
+    .stars label:hover ~ label {
+        color: #ffc107 !important;
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 4px rgba(255,193,7,0.4));
+    }
+
+    .stars label:active {
+        transform: scale(0.9);
+    }
+
+    /* Textarea & Input Style */
+    .premium-input {
+        border-radius: 16px;
+        border: 2px solid #f1f3f5;
+        padding: 1.2rem 1.2rem 1.2rem 3rem !important;
+        resize: none;
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+    }
+
+    .premium-input:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 4px rgba(0,123,255,0.1);
+        outline: none;
+    }
+
+    .input-icon {
+        position: absolute;
+        left: 1.2rem;
+        top: 1.4rem;
+        color: #adb5bd;
+        transition: color 0.3s ease;
+    }
+
+    .premium-input:focus + .input-icon {
+        color: #007bff;
+    }
+
+    /* Buttons */
+    .btn-premium-primary {
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: white;
+        border: none;
+        border-radius: 16px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-premium-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0,123,255,0.3);
+        color: white;
+    }
+
+    .hover-primary:hover {
+        color: #007bff !important;
+    }
+
+    @@keyframes pulse {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,123,255,0.4); }
+        70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(0,123,255,0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,123,255,0); }
+    }
+
+    @@keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .premium-card {
+        animation: fadeInDown 0.6s ease-out;
+    }
+</style>

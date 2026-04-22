@@ -1,111 +1,159 @@
 @model Karigaar360.Models.Worker
 
 @{
-    ViewData["Title"] = Model.FullName + " - Profile";
+    ViewData["Title"] = Model.FullName + " - Professional Profile";
 }
 
-<div class="container mt-4">
-    <div class="row">
-        <!-- Left Sidebar: Basic Info -->
-        <div class="col-md-4">
-            <div class="card shadow-sm border-0 mb-4">
-                <div class="card-body text-center">
-                    <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 100px; height: 100px; font-size: 3rem;">
-                        @Model.FullName.Substring(0, 1).ToUpper()
+<div class="profile-page-wrapper py-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Left Sidebar: Professional Info -->
+            <div class="col-lg-4">
+                <div class="premium-card profile-sidebar text-center p-4">
+                    <div class="profile-avatar-container mb-4">
+                        <div class="profile-initial-avatar">
+                            @Model.FullName.Substring(0, 1).ToUpper()
+                        </div>
+                        <div class="online-indicator"></div>
                     </div>
-                    <h4>@Model.FullName</h4>
-                    <p class="text-muted"><i class="bi bi-briefcase"></i> @Model.Profession</p>
-                    <div class="mb-3">
-                        <span class="badge bg-warning text-dark fs-6">
-                            <i class="bi bi-star-fill"></i> @Model.Rating.ToString("F1")
-                        </span>
-                        <span class="badge bg-info text-white fs-6">
-                            @Model.TotalJobsCompleted Jobs Done
-                        </span>
+                    
+                    <h3 class="fw-bold mb-1">@Model.FullName</h3>
+                    <p class="text-primary fw-600 mb-4"><i class="fas fa-toolbox me-2"></i>@Model.Profession Professional</p>
+                    
+                    <div class="stats-grid mb-4">
+                        <div class="stat-item">
+                            <span class="stat-value text-warning"><i class="fas fa-star me-1"></i>@Model.Rating.ToString("F1")</span>
+                            <span class="stat-label">Rating</span>
+                        </div>
+                        <div class="stat-item border-start border-end">
+                            <span class="stat-value text-info">@Model.TotalJobsCompleted</span>
+                            <span class="stat-label">Jobs Done</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value text-success">@Model.ExperienceYears+</span>
+                            <span class="stat-label">Years Exp.</span>
+                        </div>
                     </div>
-                    <hr />
-                    <ul class="list-unstyled text-start">
-                        <li class="mb-2"><i class="bi bi-clock-history me-2"></i> <strong>Experience:</strong> @Model.ExperienceYears Years</li>
-                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> <strong>Location:</strong> @Model.Location</li>
-                        <li class="mb-2"><i class="bi bi-lightning me-2"></i> <strong>Skill Score:</strong> @Model.SkillScore.ToString("F0")</li>
-                    </ul>
+
+                    <div class="detailed-info-list text-start">
+                        <div class="info-row p-3 mb-2 rounded-3 bg-light d-flex align-items-center">
+                            <i class="fas fa-map-marker-alt text-danger me-3 fs-5"></i>
+                            <div>
+                                <small class="text-muted d-block">Location</small>
+                                <span class="fw-bold">@Model.Location</span>
+                            </div>
+                        </div>
+                        <div class="info-row p-3 mb-2 rounded-3 bg-light d-flex align-items-center">
+                            <i class="fas fa-bolt text-warning me-3 fs-5"></i>
+                            <div>
+                                <small class="text-muted d-block">Skill Score</small>
+                                <span class="fw-bold text-gradient-primary">@Model.SkillScore.ToString("F0")</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-3 mt-4">
+                        <a asp-controller="Chat" asp-action="Index" asp-route-receiverId="@Model.Id" asp-route-isReceiverWorker="true" class="btn btn-premium-primary py-3">
+                            <i class="fas fa-comment-dots me-2"></i> Message Karigaar
+                        </a>
+                        <a href="tel:@Model.Phone" class="btn btn-light py-3 border-0 rounded-4 fw-bold">
+                            <i class="fas fa-phone-alt me-2 text-primary"></i> Contact via Phone
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Main Content: Portfolio & Reviews -->
-        <div class="col-md-8">
-            <!-- Portfolio Section -->
-            <div class="card shadow-sm border-0 mb-4">
-                <div class="card-header bg-white border-bottom">
-                    <h5 class="mb-0 text-primary"><i class="bi bi-image"></i> Work Portfolio</h5>
+            <!-- Main Content: Portfolio & Verification -->
+            <div class="col-lg-8">
+                <!-- Portfolio Section -->
+                <div class="premium-card mb-4">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4 d-flex justify-content-between align-items-center">
+                        <h5 class="fw-bold mb-0 text-dark"><i class="fas fa-images text-primary me-2"></i>Work Portfolio</h5>
+                        <span class="badge bg-soft-primary px-3 py-2 rounded-pill">Verified Showcase</span>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row g-3">
+                            @if (string.IsNullOrEmpty(Model.PortfolioImage1) && string.IsNullOrEmpty(Model.PortfolioImage2) && string.IsNullOrEmpty(Model.PortfolioImage3))
+                            {
+                                <div class="col-12 py-5 text-center">
+                                    <div class="empty-state">
+                                        <i class="fas fa-camera-retro fa-3x text-muted mb-3 opacity-25"></i>
+                                        <p class="text-muted">This professional hasn't uploaded portfolio images yet.</p>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                @if (!string.IsNullOrEmpty(Model.PortfolioImage1))
+                                {
+                                    <div class="col-md-4">
+                                        <div class="portfolio-item-wrapper">
+                                            <img src="@Model.PortfolioImage1" class="img-fluid rounded-4 portfolio-img" alt="Work 1" />
+                                            <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                                        </div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.PortfolioImage2))
+                                {
+                                    <div class="col-md-4">
+                                        <div class="portfolio-item-wrapper">
+                                            <img src="@Model.PortfolioImage2" class="img-fluid rounded-4 portfolio-img" alt="Work 2" />
+                                            <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                                        </div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.PortfolioImage3))
+                                {
+                                    <div class="col-md-4">
+                                        <div class="portfolio-item-wrapper">
+                                            <img src="@Model.PortfolioImage3" class="img-fluid rounded-4 portfolio-img" alt="Work 3" />
+                                            <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="row g-3">
-                        @if (string.IsNullOrEmpty(Model.PortfolioImage1) && string.IsNullOrEmpty(Model.PortfolioImage2) && string.IsNullOrEmpty(Model.PortfolioImage3))
+
+                <!-- Customer Reviews Section -->
+                <div class="premium-card">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4">
+                        <h5 class="fw-bold mb-0 text-dark"><i class="fas fa-comment-dots text-warning me-2"></i>Recent Reviews</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        @if (ViewBag.Reviews != null && ((IEnumerable<Karigaar360.Models.Rating>)ViewBag.Reviews).Any())
                         {
-                            <div class="col-12 text-center text-muted">
-                                <p>No portfolio images uploaded yet.</p>
-                            </div>
+                            foreach (var review in (IEnumerable<Karigaar360.Models.Rating>)ViewBag.Reviews)
+                            {
+                                <div class="review-item p-4 mb-3">
+                                    <div class="d-flex justify-content-between align-items-start mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="customer-avatar me-3">
+                                                @(review.Customer?.FullName.Substring(0, 1).ToUpper() ?? "C")
+                                            </div>
+                                            <div>
+                                                <h6 class="fw-bold mb-0">@(review.Customer?.FullName ?? "Anonymous Customer")</h6>
+                                                <div class="review-stars">
+                                                    @for (int i = 0; i < review.Stars; i++) { <i class="fas fa-star text-warning small"></i> }
+                                                    @for (int i = review.Stars; i < 5; i++) { <i class="far fa-star text-muted small"></i> }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <small class="text-muted bg-light px-2 py-1 rounded">@review.RatedAt.ToString("MMM dd, yyyy")</small>
+                                    </div>
+                                    <p class="review-text text-secondary mb-0">@review.Review</p>
+                                </div>
+                            }
                         }
                         else
                         {
-                            @if (!string.IsNullOrEmpty(Model.PortfolioImage1))
-                            {
-                                <div class="col-md-4">
-                                    <img src="@Model.PortfolioImage1" class="img-fluid rounded shadow-sm portfolio-img" alt="Work 1" />
-                                </div>
-                            }
-                            @if (!string.IsNullOrEmpty(Model.PortfolioImage2))
-                            {
-                                <div class="col-md-4">
-                                    <img src="@Model.PortfolioImage2" class="img-fluid rounded shadow-sm portfolio-img" alt="Work 2" />
-                                </div>
-                            }
-                            @if (!string.IsNullOrEmpty(Model.PortfolioImage3))
-                            {
-                                <div class="col-md-4">
-                                    <img src="@Model.PortfolioImage3" class="img-fluid rounded shadow-sm portfolio-img" alt="Work 3" />
-                                </div>
-                            }
-                        }
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reviews Section -->
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-white border-bottom">
-                    <h5 class="mb-0 text-primary"><i class="bi bi-chat-left-quote"></i> Customer Reviews</h5>
-                </div>
-                <div class="card-body">
-                    @if (ViewBag.Reviews != null && ((IEnumerable<Karigaar360.Models.Rating>)ViewBag.Reviews).Any())
-                    {
-                        foreach (var review in (IEnumerable<Karigaar360.Models.Rating>)ViewBag.Reviews)
-                        {
-                            <div class="mb-4 pb-3 border-bottom">
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <h6 class="mb-0">@review.Customer?.FullName</h6>
-                                    <small class="text-muted">@review.RatedAt.ToString("MMM dd, yyyy")</small>
-                                </div>
-                                <div class="text-warning mb-2">
-                                    @for (int i = 0; i < review.Stars; i++)
-                                    {
-                                        <i class="bi bi-star-fill"></i>
-                                    }
-                                    @for (int i = review.Stars; i < 5; i++)
-                                    {
-                                        <i class="bi bi-star"></i>
-                                    }
-                                </div>
-                                <p class="mb-0">@review.Review</p>
+                            <div class="text-center py-4">
+                                <i class="fas fa-quote-left fa-2x text-muted opacity-25 mb-3"></i>
+                                <p class="text-muted">No customer ratings yet. Be the first to hire!</p>
                             </div>
                         }
-                    }
-                    else
-                    {
-                        <p class="text-center text-muted">No reviews yet.</p>
-                    }
+                    </div>
                 </div>
             </div>
         </div>
@@ -113,14 +161,155 @@
 </div>
 
 <style>
-    .portfolio-img {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
+    .profile-page-wrapper {
+        min-height: 100vh;
+        background-color: #f8f9fa;
+    }
+
+    .premium-card {
+        background: #fff;
+        border-radius: 20px;
+        border: none;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         transition: transform 0.3s ease;
     }
-    .portfolio-img:hover {
-        transform: scale(1.05);
+
+    /* Profile Avatar */
+    .profile-avatar-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .profile-initial-avatar {
+        width: 120px;
+        height: 120px;
+        background: linear-gradient(135deg, #007bff 0%, #00d2ff 100%);
+        border-radius: 35% 65% 70% 30% / 30% 30% 70% 70%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5rem;
+        color: white;
+        font-weight: 800;
+        box-shadow: 0 10px 20px rgba(0,123,255,0.2);
+    }
+
+    .online-indicator {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        width: 24px;
+        height: 24px;
+        background: #28a745;
+        border: 4px solid white;
+        border-radius: 50%;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        padding: 15px 0;
+        background: #fcfdfe;
+        border-radius: 15px;
+    }
+
+    .stat-item {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .stat-value {
+        font-weight: 800;
+        font-size: 1.1rem;
+    }
+
+    .stat-label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #adb5bd;
+    }
+
+    /* Portfolio Highlights */
+    .portfolio-item-wrapper {
+        position: relative;
+        overflow: hidden;
+        border-radius: 16px;
         cursor: pointer;
     }
+
+    .portfolio-img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,123,255,0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .portfolio-item-wrapper:hover .portfolio-img { transform: scale(1.1); }
+    .portfolio-item-wrapper:hover .overlay { opacity: 1; }
+
+    /* Review Items */
+    .review-item {
+        background: #fcfdfe;
+        border-radius: 16px;
+        border: 1px solid rgba(0,0,0,0.02);
+    }
+
+    .customer-avatar {
+        width: 45px;
+        height: 45px;
+        background: #e9ecef;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #495057;
+    }
+
+    .review-stars i { margin-right: 2px; }
+
+    /* Buttons & Components */
+    .btn-premium-primary {
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: white;
+        border: none;
+        border-radius: 14px;
+        font-weight: 700;
+        box-shadow: 0 5px 15px rgba(0,123,255,0.25);
+    }
+
+    .btn-premium-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0,123,255,0.3);
+        color: white;
+    }
+
+    .text-gradient-primary {
+        background: linear-gradient(to right, #007bff, #00d2ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .bg-soft-primary {
+        background: rgba(0,123,255,0.08);
+        color: #007bff;
+        font-weight: 600;
+    }
+
+    .fw-600 { font-weight: 600; }
 </style>

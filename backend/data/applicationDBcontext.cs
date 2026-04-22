@@ -15,5 +15,6 @@ namespace Karigaar360.Data
         public DbSet<Job> Jobs { get; set; }
         public DbSet<JobApplication> JobApplications { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<ChatMessage> ChatMessages { get; set; }
     }
 }

@@ -1,73 +1,227 @@
 @{
-    ViewData["Title"] = "Customer Dashboard";
+    ViewData["Title"] = "Customer Dashboard - Karigaar 360";
 }
 
-<div class="container py-5 mt-4">
-    <div class="row g-4">
-        <!-- Sidebar Info -->
-        <div class="col-lg-4">
-            <div class="card shadow-sm border-0 mb-4 animate-up">
-                <div class="card-body text-center p-5">
-                    <div class="mb-4">
-                        <i class="fas fa-user-circle fa-6x text-primary opacity-25"></i>
-                    </div>
-                    <h3 class="fw-bold mb-1">@ViewBag.UserName</h3>
-                    <p class="text-muted mb-4">Valued Customer</p>
-                    <hr>
-                    <div class="d-grid gap-2 mt-4">
-                        <a asp-controller="Job" asp-action="Create" class="btn btn-primary rounded-pill">
-                            <i class="fas fa-plus me-2"></i> Post a New Job
-                        </a>
-                        <a asp-controller="Job" asp-action="MyJobs" class="btn btn-outline-primary rounded-pill">
-                            <i class="fas fa-list me-2"></i> View My Jobs
-                        </a>
-                    </div>
-                </div>
+<div class="dashboard-wrapper py-5">
+    <div class="container">
+        <!-- Dashboard Header -->
+        <div class="row align-items-center mb-5 animate-up">
+            <div class="col-md-7">
+                <h1 class="fw-800 text-dark mb-1">Welcome back, <span class="text-primary">@ViewBag.UserName</span>!</h1>
+                <p class="text-muted lead">Manage your job postings and find the best Karigaars for your home.</p>
             </div>
-
-            <div class="card shadow-sm border-0 animate-up" style="animation-delay: 0.1s;">
-                <div class="card-body p-4">
-                    <h5 class="fw-bold mb-3">Account Summary</h5>
-                        <div class="list-group list-group-flush">
-                        <div class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <span>Total Posts</span>
-                            <span class="badge bg-primary rounded-pill">@ViewBag.TotalJobs</span>
-                        </div>
-                        <div class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <span>Completed</span>
-                            <span class="badge bg-success rounded-pill">@ViewBag.CompletedJobs</span>
-                        </div>
-                        <div class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <span>Active</span>
-                            <span class="badge bg-info rounded-pill text-dark">@ViewBag.ActiveJobs</span>
-                        </div>
-                    </div>
+            <div class="col-md-5 text-md-end">
+                <div class="d-flex gap-3 justify-content-md-end">
+                    <a asp-controller="Job" asp-action="Create" class="btn btn-premium-primary px-4 py-3 shadow-lg">
+                        <i class="fas fa-plus-circle me-2"></i>Post New Job
+                    </a>
                 </div>
             </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="col-lg-8">
-            <div class="card shadow-sm border-0 h-100 animate-up" style="animation-delay: 0.2s;">
-                <div class="card-header bg-white border-0 py-4">
-                    <h4 class="fw-bold mb-0">Recent Activity</h4>
-                </div>
-                <div class="card-body p-4">
-                    <div class="alert alert-success border-0 shadow-sm d-flex align-items-center p-4 mb-4">
-                        <i class="fas fa-check-circle fa-2x me-3"></i>
-                        <div>
-                            <h6 class="fw-bold mb-1">Looking for help?</h6>
-                            <p class="mb-0 small">Your latest job post has received 2 new quotes from verified Karigaars!</p>
+        <div class="row g-4">
+            <!-- Stats Row -->
+            <div class="col-12">
+                <div class="row g-4 mb-4">
+                    <div class="col-md-4 animate-up" style="animation-delay: 0.1s;">
+                        <div class="premium-card stat-card p-4 gradient-blue text-white">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6 class="text-uppercase small opacity-75 fw-bold">Total Jobs Posted</h6>
+                                    <h2 class="fw-800 mb-0">@ViewBag.TotalJobs</h2>
+                                </div>
+                                <div class="stat-icon-bg"><i class="fas fa-clipboard-list"></i></div>
+                            </div>
                         </div>
                     </div>
+                    <div class="col-md-4 animate-up" style="animation-delay: 0.2s;">
+                        <div class="premium-card stat-card p-4 gradient-purple text-white">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6 class="text-uppercase small opacity-75 fw-bold">Jobs in Progress</h6>
+                                    <h2 class="fw-800 mb-0">@ViewBag.ActiveJobs</h2>
+                                </div>
+                                <div class="stat-icon-bg"><i class="fas fa-spinner fa-spin"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 animate-up" style="animation-delay: 0.3s;">
+                        <div class="premium-card stat-card p-4 gradient-green text-white">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h6 class="text-uppercase small opacity-75 fw-bold">Successfully Completed</h6>
+                                    <h2 class="fw-800 mb-0">@ViewBag.CompletedJobs</h2>
+                                </div>
+                                <div class="stat-icon-bg"><i class="fas fa-check-double"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                    <div class="mt-5 text-center p-5 opacity-50 bg-light rounded-4">
-                        <i class="fas fa-history fa-4x mb-3"></i>
-                        <h5>No Recent Notifications</h5>
-                        <p class="mb-0">Your recent activities and job updates will appear here.</p>
+            <!-- Left Panel: Profile Quick View -->
+            <div class="col-lg-4 animate-up" style="animation-delay: 0.4s;">
+                <div class="premium-card p-4 mb-4">
+                    <div class="text-center mb-4">
+                        <div class="customer-dash-avatar mx-auto mb-3">
+                            @ViewBag.UserName.Substring(0, 1).ToUpper()
+                        </div>
+                        <h4 class="fw-bold mb-0">@ViewBag.UserName</h4>
+                        <span class="badge bg-soft-primary px-3 py-1 rounded-pill mt-2">Verified Customer</span>
+                    </div>
+                    <hr class="opacity-25">
+                    <div class="quick-nav d-grid gap-2">
+                        <a asp-action="Profile" asp-route-id="@Context.Session.GetInt32("CustomerId")" class="btn btn-light text-start p-3 rounded-4 border-0 hover-lift">
+                            <i class="fas fa-user-circle text-primary me-2"></i> View My Public Profile
+                        </a>
+                        <a asp-controller="Job" asp-action="MyJobs" class="btn btn-light text-start p-3 rounded-4 border-0 hover-lift">
+                            <i class="fas fa-th-list text-primary me-2"></i> Manage My Jobs
+                        </a>
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-light text-start p-3 rounded-4 border-0 hover-lift">
+                            <i class="fas fa-search text-primary me-2"></i> Search for Karigaars
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Activity Feed -->
+            <div class="col-lg-8 animate-up" style="animation-delay: 0.5s;">
+                <div class="premium-card h-100 p-0 overflow-hidden">
+                    <div class="card-header bg-transparent border-0 p-4 pb-0 d-flex justify-content-between align-items-center">
+                        <h5 class="fw-bold mb-0"><i class="fas fa-bolt text-warning me-2"></i>Recent Activity</h5>
+                        <a href="#" class="text-primary text-decoration-none small">View All</a>
+                    </div>
+                    <div class="card-body p-4">
+                        @if (ViewBag.TotalJobs == 0)
+                        {
+                            <div class="text-center py-5">
+                                <div class="empty-anim-circle mb-4 mx-auto">
+                                    <i class="fas fa-file-signature text-muted opacity-50"></i>
+                                </div>
+                                <h5 class="fw-bold">No jobs posted yet!</h5>
+                                <p class="text-muted">Start your journey by posting your first job requirement.</p>
+                                <a asp-controller="Job" asp-action="Create" class="btn btn-primary rounded-pill px-4 mt-2">Get Started</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="activity-timeline">
+                                <div class="alert alert-soft-primary border-0 p-4 rounded-4 mb-4">
+                                    <div class="d-flex align-items-center">
+                                        <div class="alert-icon-wrap me-3">
+                                            <i class="fas fa-info-circle"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Service Tip</h6>
+                                            <p class="mb-0 small text-secondary">Providing clear descriptions and high-quality images helps Karigaars understand your job better!</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="list-group list-group-flush shadow-none">
+                                    <div class="list-group-item bg-transparent px-0 py-3 d-flex border-0">
+                                        <div class="activity-date me-3 text-center">
+                                            <span class="d-block fw-bold text-dark mb-0">TODAY</span>
+                                        </div>
+                                        <div class="activity-content">
+                                            <p class="mb-0 text-secondary">Your dashboard has been updated to the <span class="fw-bold text-primary">Karigaar 360 Premium V2</span> system.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .dashboard-wrapper {
+        min-height: 100vh;
+        background-color: #f6f9fc;
+    }
+
+    .fw-800 { font-weight: 800; }
+    
+    .premium-card {
+        background: #fff;
+        border-radius: 24px;
+        border: none;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    /* Stat Cards */
+    .stat-card {
+        border-radius: 20px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .gradient-blue { background: linear-gradient(135deg, #007bff 0%, #00d2ff 100%); }
+    .gradient-purple { background: linear-gradient(135deg, #6610f2 0%, #a26cfb 100%); }
+    .gradient-green { background: linear-gradient(135deg, #28a745 0%, #4ae570 100%); }
+
+    .stat-icon-bg {
+        font-size: 3rem;
+        opacity: 0.15;
+        position: absolute;
+        right: -10px;
+        bottom: -15px;
+    }
+
+    /* Avatars */
+    .customer-dash-avatar {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+        color: white;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        font-weight: 800;
+        box-shadow: 0 8px 16px rgba(75,108,183,0.25);
+    }
+
+    .alert-soft-primary { background-color: rgba(0,123,255,0.05); color: #007bff; }
+    .alert-icon-wrap { font-size: 1.5rem; }
+
+    .btn-premium-primary {
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: white;
+        border: none;
+        border-radius: 16px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-premium-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 24px rgba(0,123,255,0.3);
+        color: white;
+    }
+
+    .hover-lift:hover {
+        transform: scale(1.02);
+        background-color: #f1f4f9 !important;
+    }
+
+    .empty-anim-circle {
+        width: 100px;
+        height: 100px;
+        background: #f8fafc;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        border: 2px dashed #dee2e6;
+    }
+
+    .bg-soft-primary { background: rgba(0,123,255,0.1); color: #007bff; font-weight: 700; }
+</style>

@@ -1,0 +1,196 @@
+@model IEnumerable<Karigaar360.Models.ChatMessage>
+
+@{
+    ViewData["Title"] = "Chat with " + ViewBag.ReceiverName;
+}
+
+<div class="chat-page-wrapper py-4">
+    <div class="container h-100">
+        <div class="row justify-content-center h-100">
+            <div class="col-lg-10 col-xl-8 h-100">
+                <div class="premium-card chat-card d-flex flex-column">
+                    <!-- Chat Header -->
+                    <div class="chat-header p-4 border-bottom d-flex align-items-center justify-content-between bg-white sticky-top rounded-top-4">
+                        <div class="d-flex align-items-center">
+                            <div class="chat-avatar me-3">
+                                @ViewBag.ReceiverName.Substring(0, 1).ToUpper()
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-0">@ViewBag.ReceiverName</h5>
+                                <small class="text-success fw-600"><i class="fas fa-circle me-1 small"></i> Online</small>
+                            </div>
+                        </div>
+                        <div class="header-actions">
+                            <a href="javascript:history.back()" class="btn btn-light rounded-circle"><i class="fas fa-times"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Chat Messages -->
+                    <div class="chat-messages-container p-4 flex-grow-1 overflow-auto" id="chatBox">
+                        @if (!Model.Any())
+                        {
+                            <div class="empty-chat-state text-center py-5">
+                                <div class="empty-chat-icon mb-3">
+                                    <i class="far fa-comments fa-3x text-muted opacity-25"></i>
+                                </div>
+                                <h6 class="text-muted">Start a conversation with @ViewBag.ReceiverName</h6>
+                                <p class="small text-muted px-5">Be polite and professional. Your safety is our priority.</p>
+                            </div>
+                        }
+                        else
+                        {
+                            foreach (var msg in Model)
+                            {
+                                bool isMine = msg.SenderId == ViewBag.CurrentUserId && msg.IsWorkerSender == ViewBag.IsCurrentUserWorker;
+                                
+                                <div class="message-wrapper mb-4 d-flex @(isMine ? "justify-content-end" : "justify-content-start")">
+                                    <div class="message-bubble-container @(isMine ? "text-end" : "text-start")">
+                                        <div class="message-bubble @(isMine ? "bg-primary text-white" : "bg-light text-dark")">
+                                            @msg.Content
+                                        </div>
+                                        <div class="message-meta small text-muted mt-1 px-2">
+                                            @msg.Timestamp.ToString("h:mm tt")
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+
+                    <!-- Chat Input -->
+                    <div class="chat-input-area p-4 border-top bg-white rounded-bottom-4">
+                        <form asp-action="SendMessage" method="post" class="d-flex gap-2 align-items-center" id="msgForm">
+                            <input type="hidden" name="receiverId" value="@ViewBag.ReceiverId" />
+                            <input type="hidden" name="isReceiverWorker" value="@(ViewBag.IsReceiverWorker.ToString().ToLower())" />
+                            
+                            <div class="input-group-premium flex-grow-1">
+                                <input type="text" name="content" class="form-control premium-chat-input" placeholder="Type your message here..." required autocomplete="off" />
+                                <div class="input-actions-glow"></div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-send-premium">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Auto scroll to bottom
+            const chatBox = document.getElementById('chatBox');
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Simple polling for a "real-time" feel without SignalR
+            setInterval(function() {
+                // In a real app, you'd use AJAX to fetch only NEW messages
+                // For this demo, we'll just check if the user is idle
+            }, 5000);
+        });
+    </script>
+}
+
+<style>
+    .chat-page-wrapper {
+        height: calc(100vh - 150px);
+        background-color: #f1f4f9;
+    }
+
+    .chat-card {
+        height: 100%;
+        background: #fff;
+        border-radius: 24px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        border: none;
+    }
+
+    .chat-header {
+        z-index: 100;
+    }
+
+    .chat-avatar {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, #007bff 0%, #00d2ff 100%);
+        color: white;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 1.2rem;
+    }
+
+    .chat-messages-container {
+        scrollbar-width: thin;
+        scrollbar-color: #dee2e6 transparent;
+    }
+
+    .chat-messages-container::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .chat-messages-container::-webkit-scrollbar-thumb {
+        background: #dee2e6;
+        border-radius: 10px;
+    }
+
+    .message-bubble {
+        max-width: 80%;
+        padding: 12px 18px;
+        border-radius: 18px;
+        font-size: 0.95rem;
+        word-wrap: break-word;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+
+    .message-wrapper.justify-content-start .message-bubble {
+        border-bottom-left-radius: 4px;
+    }
+
+    .message-wrapper.justify-content-end .message-bubble {
+        border-bottom-right-radius: 4px;
+    }
+
+    /* Premium Input */
+    .premium-chat-input {
+        border-radius: 14px;
+        border: 2px solid #f1f3f5;
+        padding: 12px 20px;
+        transition: all 0.3s ease;
+        background: #f8f9fa;
+    }
+
+    .premium-chat-input:focus {
+        background: #fff;
+        border-color: #007bff;
+        box-shadow: 0 0 0 4px rgba(0,123,255,0.05);
+        outline: none;
+    }
+
+    .btn-send-premium {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: white !important;
+        border-radius: 14px;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0,123,255,0.2);
+    }
+
+    .btn-send-premium:hover {
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 8px 20px rgba(0,123,255,0.3);
+    }
+
+    .fw-600 { font-weight: 600; }
+</style>

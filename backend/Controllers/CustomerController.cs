@@ -68,15 +68,32 @@ public class CustomerController : Controller
         var customerId = HttpContext.Session.GetInt32("CustomerId");
         if (customerId == null) return RedirectToAction(nameof(Login));
 
-        var userName = HttpContext.Session.GetString("CustomerName") ?? "Customer";
+        var customer = await _context.Customers.FindAsync(customerId);
+        if (customer == null) return RedirectToAction(nameof(Login));
         
         // Real stats
         ViewBag.TotalJobs = await _context.Jobs.CountAsync(j => j.CustomerId == customerId);
         ViewBag.CompletedJobs = await _context.Jobs.CountAsync(j => j.CustomerId == customerId && j.Status == "Completed");
         ViewBag.ActiveJobs = await _context.Jobs.CountAsync(j => j.CustomerId == customerId && j.Status == "InProgress");
         
-        ViewBag.UserName = userName;
+        ViewBag.UserName = customer.FullName;
         return View();
+    }
+
+    public async Task<IActionResult> Profile(int id)
+    {
+        var customer = await _context.Customers.FindAsync(id);
+        if (customer == null) return NotFound();
+
+        // Get job history for this customer (optional, but shows credibility)
+        var jobs = await _context.Jobs
+            .Where(j => j.CustomerId == id)
+            .OrderByDescending(j => j.CreatedAt)
+            .Take(5)
+            .ToListAsync();
+
+        ViewBag.RecentJobs = jobs;
+        return View(customer);
     }
 
     public IActionResult Logout()

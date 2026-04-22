@@ -1,0 +1,250 @@
+@model Karigaar360.Models.Customer
+
+@{
+    ViewData["Title"] = Model.FullName + " - Premium Customer Profile";
+}
+
+<div class="profile-page-wrapper py-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Left Sidebar: Customer Identity -->
+            <div class="col-lg-4">
+                <div class="premium-card sticky-sidebar p-4 text-center pb-5">
+                    <div class="profile-avatar-container mb-4">
+                        <div class="customer-dash-avatar mx-auto">
+                            @Model.FullName.Substring(0, 1).ToUpper()
+                        </div>
+                        <div class="verified-badge-wrap">
+                            <i class="fas fa-check-circle text-primary bg-white rounded-circle p-1" title="Verified Member"></i>
+                        </div>
+                    </div>
+                    
+                    <h3 class="fw-800 text-dark mb-1">@Model.FullName</h3>
+                    <div class="badge bg-soft-primary px-3 py-2 rounded-pill mb-4">
+                        <i class="fas fa-crown me-1 text-warning"></i> Platinum Customer
+                    </div>
+
+                    <div class="contact-card bg-light p-4 rounded-4 mb-4 text-start">
+                        <div class="mb-3 d-flex align-items-center">
+                            <div class="icon-box-small bg-white me-3">
+                                <i class="fas fa-phone-alt text-primary"></i>
+                            </div>
+                            <div>
+                                <small class="text-muted d-block uppercase-fw-800">Phone</small>
+                                <span class="fw-bold">@Model.Phone</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="icon-box-small bg-white me-3">
+                                <i class="fas fa-envelope text-primary"></i>
+                            </div>
+                            <div>
+                                <small class="text-muted d-block uppercase-fw-800">Email Status</small>
+                                <span class="fw-bold text-success"><i class="fas fa-shield-alt me-1"></i>Secure Verified</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <a asp-controller="Chat" asp-action="Index" asp-route-receiverId="@Model.Id" asp-route-isReceiverWorker="false" class="btn btn-premium-primary py-3">
+                            <i class="fas fa-comment-dots me-2"></i> Message Customer
+                        </a>
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-light py-3 border-0 rounded-4">
+                            <i class="fas fa-arrow-left me-2"></i> Back to Explore
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content: Stats & History -->
+            <div class="col-lg-8">
+                <!-- Activity Overview -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                        <div class="premium-card p-4 gradient-glass-primary">
+                            <div class="d-flex align-items-center">
+                                <div class="stat-icon-wrap me-3">
+                                    <i class="fas fa-clipboard-check text-primary"></i>
+                                </div>
+                                <div>
+                                    <h2 class="fw-800 mb-0">@((IEnumerable<Karigaar360.Models.Job>)ViewBag.RecentJobs).Count()</h2>
+                                    <p class="text-muted mb-0 small uppercase-fw-800">Published Jobs</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="premium-card p-4 gradient-glass-success">
+                            <div class="d-flex align-items-center">
+                                <div class="stat-icon-wrap me-3">
+                                    <i class="fas fa-user-shield text-success"></i>
+                                </div>
+                                <div>
+                                    <h2 class="fw-800 mb-0 text-success">Active</h2>
+                                    <p class="text-muted mb-0 small uppercase-fw-800">Account Status</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job History Section -->
+                <div class="premium-card">
+                    <div class="card-header bg-transparent border-0 p-4 pb-0">
+                        <h5 class="fw-800"><i class="fas fa-history text-primary me-2"></i>Recent Postings History</h5>
+                        <p class="text-muted small">Publicly shared job requirements to browse customer activity.</p>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="job-timeline shadow-none">
+                            @if (ViewBag.RecentJobs != null && ((IEnumerable<Karigaar360.Models.Job>)ViewBag.RecentJobs).Any())
+                            {
+                                foreach (var job in (IEnumerable<Karigaar360.Models.Job>)ViewBag.RecentJobs)
+                                {
+                                    <div class="history-item p-4 mb-3 border-0 rounded-4 bg-light hover-lift d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center">
+                                            <div class="category-indicator me-3"></div>
+                                            <div>
+                                                <h6 class="fw-bold mb-1">@job.Title</h6>
+                                                <div class="d-flex gap-3 small text-muted">
+                                                    <span><i class="fas fa-tools-alt me-1"></i>@job.Category</span>
+                                                    <span><i class="far fa-calendar-alt me-1"></i>@job.CreatedAt.ToString("MMM dd")</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            @{
+                                                var badgeClass = job.Status switch {
+                                                    "Open" => "bg-success",
+                                                    "InProgress" => "bg-warning text-dark",
+                                                    "Completed" => "bg-primary",
+                                                    _ => "bg-secondary"
+                                                };
+                                            }
+                                            <span class="badge @badgeClass rounded-pill px-3 py-2 fw-bold text-uppercase" style="font-size: 0.65rem;">@job.Status</span>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="text-center py-5 opacity-50">
+                                    <i class="fas fa-folder-open fa-3x mb-3"></i>
+                                    <p>No public jobs to display at the moment.</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .profile-page-wrapper {
+        min-height: 100vh;
+        background-color: #f6f9fc;
+    }
+
+    .fw-800 { font-weight: 800; }
+    .uppercase-fw-800 { text-transform: uppercase; font-weight: 800; font-size: 0.7rem; letter-spacing: 0.5px; }
+
+    .premium-card {
+        background: #fff;
+        border-radius: 30px;
+        border: none;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+        transition: all 0.3s ease;
+    }
+
+    .sticky-sidebar {
+        position: sticky;
+        top: 100px;
+    }
+
+    .customer-dash-avatar {
+        width: 120px;
+        height: 120px;
+        background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+        color: white;
+        border-radius: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        font-weight: 800;
+        box-shadow: 0 15px 30px rgba(75,108,183,0.3);
+    }
+
+    .profile-avatar-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .verified-badge-wrap {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        font-size: 1.8rem;
+    }
+
+    .icon-box-small {
+        width: 35px;
+        height: 35px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+    }
+
+    .bg-soft-primary { background: rgba(0,123,255,0.08); color: #007bff; font-weight: 700; }
+
+    /* Stats Pill */
+    .stat-icon-wrap {
+        width: 55px;
+        height: 55px;
+        border-radius: 18px;
+        background: rgba(255,255,255,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    .gradient-glass-primary { background: linear-gradient(to bottom right, #f0f7ff, #ffffff); border: 1px solid #e1f0ff; }
+    .gradient-glass-success { background: linear-gradient(to bottom right, #f0fff4, #ffffff); border: 1px solid #dcf6e5; }
+
+    .history-item {
+        transition: all 0.3s ease;
+    }
+
+    .hover-lift:hover {
+        transform: translateX(10px);
+        background: #fff !important;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    }
+
+    .category-indicator {
+        width: 4px;
+        height: 30px;
+        background: var(--primary-color);
+        border-radius: 10px;
+    }
+
+    /* Buttons */
+    .btn-premium-primary {
+        background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+        color: white;
+        border: none;
+        border-radius: 20px;
+        font-weight: 800;
+        transition: all 0.3s ease;
+    }
+
+    .btn-premium-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(0,123,255,0.3);
+        color: white;
+    }
+</style>
