@@ -93,6 +93,7 @@ public class CustomerController : Controller
             .ToListAsync();
 
         ViewBag.RecentJobs = jobs;
+        ViewBag.TotalJobs = await _context.Jobs.CountAsync(j => j.CustomerId == id);
         return View(customer);
     }
 
