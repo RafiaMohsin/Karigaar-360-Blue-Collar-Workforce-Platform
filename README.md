@@ -16,7 +16,7 @@ Karigaar-360 is a comprehensive web platform built with ASP.NET Core MVC that co
 | Name | Roll Number |
 |------|------------|
 | Aliya Rasheed | 24L-2544 |
-| Aima Shakeel | 24L-2531 |
+| Kashish | 24L-2531 |
 | Kashish Fatima | 24L-2605 |
 | Rafia Mohsin | 24L-2595 |
 
@@ -54,7 +54,7 @@ Karigaar-360-Blue-Collar-Workforce-Platform/
 │   ├── register.html
 │   └── css/
 │
-├── database/                         # 📌 Database Schema & Data
+├── database/                         #  Database Schema & Data
 │   ├── schema.sql                    # Create TABLE statements
 │   ├── seed.sql                      # Sample & Test Data
 │   ├── ERD.md                        # Entity Relationship Diagram
@@ -70,7 +70,7 @@ Karigaar-360-Blue-Collar-Workforce-Platform/
 
 ---
 
-## 🚀 How to Run the Project
+##  How to Run the Project
 
 ### Prerequisites
 - **.NET 9.0 SDK** or later: [Download](https://dotnet.microsoft.com/download)
@@ -167,7 +167,7 @@ This allows you to test the application immediately after database setup.
 
 ---
 
-## 📊 Database Schema
+##  Database Schema
 
 The project uses three main tables:
 
@@ -218,7 +218,7 @@ For detailed schema documentation, see: [`database/ERD.md`](database/ERD.md)
 
 ---
 
-## 🎨 Project Design Resources
+##  Project Design Resources
 
 ### Figma Design (Site Map)
 View the project design and wireframes:
@@ -231,7 +231,7 @@ View the project design and wireframes:
 
 ---
 
-## 🧪 Testing the Application
+##  Testing the Application
 
 ### Test Accounts (with sample data)
 
@@ -261,7 +261,7 @@ Experience: 8 years
 
 ---
 
-## 🔐 Security Features
+##  Security Features
 
 - ✅ Password hashing (bcrypt)
 - ✅ SQL injection prevention (parameterized queries via EF Core)
@@ -274,7 +274,7 @@ Experience: 8 years
 
 ---
 
-## 📦 Dependencies
+## Dependencies
 
 ### Main NuGet Packages
 - `Microsoft.EntityFrameworkCore` - ORM
@@ -289,7 +289,7 @@ dotnet list package
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 1. **Create a branch** for your feature:
    ```bash
@@ -322,7 +322,7 @@ dotnet list package
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Issue: Database not found
 **Solution**: Run `dotnet ef database update` in backend directory
@@ -345,7 +345,7 @@ For more help, check: [ASP.NET Core Documentation](https://docs.microsoft.com/as
 
 ---
 
-## 📞 Contact & Support
+##  Contact & Support
 
 For issues, questions, or contributions:
 - Create an **Issue** on GitHub
@@ -354,14 +354,14 @@ For issues, questions, or contributions:
 
 ---
 
-## 📜 License
+## License
 
 This project is part of FAST-NUCES coursework (Spring 2026).  
 Educational use only.
 
 ---
 
-## 📅 Project Timeline
+## Project Timeline
 
 | Phase | Duration | Status |
 |-------|----------|--------|

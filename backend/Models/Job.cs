@@ -13,6 +13,7 @@ namespace Karigaar360.Models
         public string Title { get; set; } = string.Empty;
 
         [Required]
+        [StringLength(2000, ErrorMessage = "Description cannot exceed 2000 characters")]
         public string Description { get; set; } = string.Empty;
 
         [Required]
@@ -32,6 +33,7 @@ namespace Karigaar360.Models
         public decimal OfferedPrice { get; set; }
 
         [Required]
+        [StringLength(200, ErrorMessage = "Location cannot exceed 200 characters")]
         public string Location { get; set; } = string.Empty;
 
         public int CustomerId { get; set; }

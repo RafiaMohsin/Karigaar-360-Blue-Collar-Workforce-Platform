@@ -9,13 +9,16 @@ namespace Karigaar360.Models
         public int Id { get; set; }
         
         [Required(ErrorMessage = "Full Name is required")]
+        [StringLength(100, ErrorMessage = "Full Name cannot exceed 100 characters")]
         public string FullName { get; set; } = string.Empty;
         
         [Required(ErrorMessage = "Phone number is required")]
         [Phone(ErrorMessage = "Invalid phone format")]
+        [StringLength(20, ErrorMessage = "Phone number cannot exceed 20 characters")]
         public string Phone { get; set; } = string.Empty;
         
         [Required(ErrorMessage = "Please choose your profession")]
+        [StringLength(50, ErrorMessage = "Profession cannot exceed 50 characters")]
         public string Profession { get; set; } = string.Empty;
         
         [Required(ErrorMessage = "Experience is required")]
@@ -23,10 +26,11 @@ namespace Karigaar360.Models
         public int? ExperienceYears { get; set; }
         
         [Required(ErrorMessage = "Location is required")]
+        [StringLength(200, ErrorMessage = "Location cannot exceed 200 characters")]
         public string Location { get; set; } = string.Empty;
         
         [Required(ErrorMessage = "Password is required")]
-        [MinLength(8, ErrorMessage = "Password must be at least 8 characters long")]
+        [StringLength(100, MinimumLength = 8, ErrorMessage = "Password must be at least 8 characters long")]
         public string PasswordHash { get; set; } = string.Empty;
 
         [ValidateNever]

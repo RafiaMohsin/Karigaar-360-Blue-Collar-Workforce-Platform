@@ -23,6 +23,7 @@ namespace Karigaar360.Models
         [ValidateNever]
         public Worker? Worker { get; set; }
 
+        [StringLength(20, ErrorMessage = "Status cannot exceed 20 characters")]
         public string Status { get; set; } = "Pending"; // Pending, Accepted, Rejected
 
         public DateTime AppliedAt { get; set; } = DateTime.UtcNow;

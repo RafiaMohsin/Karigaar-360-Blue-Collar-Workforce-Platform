@@ -30,6 +30,7 @@ namespace Karigaar360.Models
         [Range(1, 5)]
         public int Stars { get; set; }
 
+        [StringLength(500, ErrorMessage = "Review cannot exceed 500 characters")]
         public string? Review { get; set; }
 
         public DateTime RatedAt { get; set; } = DateTime.UtcNow;
